@@ -16,7 +16,7 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('parent_company_id');
+            $table->unsignedBigInteger('parent_company_id')->nullable();
             $table->timestamps();
 
             $table->foreign('parent_company_id')->references('id')->on('companies');
