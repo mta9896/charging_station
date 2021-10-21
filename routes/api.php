@@ -21,16 +21,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 // route group
-Route::get('companies', 'Company\ListAllCompaniesController');
-Route::get('companies/{company}', 'Company\ShowSingleCompanyController');
-Route::post('companies', 'Company\CreateCompanyController');
-Route::put('companies/{company}', 'Company\UpdateCompanyController');
-Route::delete('companies/{company}', 'Company\DeleteCompanyController');
+Route::get('companies', 'CompanyController@index');
+Route::get('companies/{company}', 'CompanyController@show');
+Route::post('companies', 'CompanyController@create');
+Route::put('companies/{company}', 'CompanyController@update');
+Route::delete('companies/{company}', 'CompanyController@delete');
 
-Route::get('companies/{company}/stations', 'Station\ListCompanyStationsController');
-
-Route::get('stations/{station}', 'Station\ShowSingleStationController');
-Route::get('stations', 'Station\ListAllStationsController');
-Route::post('stations', 'Station\CreateStationController');
-Route::put('stations/{station}', 'Station\UpdateStationController');
-Route::delete('stations/{station}', 'Station\DeleteStationController');
+Route::get('stations/{station}', 'StationController@show');
+Route::get('stations', 'StationController@index');
+Route::post('stations', 'StationController@create');
+Route::put('stations/{station}', 'StationController@update');
+Route::delete('stations/{station}', 'StationController@delete');
