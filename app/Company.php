@@ -37,6 +37,7 @@ class Company extends Model implements \JsonSerializable
             'name' => $this->name,
             'createdAt' => $this->created_at->toAtomString(),
             'updatedAt' => $this->updated_at->toAtomString(),
+            'parentCompany' => $this->parent()->get(),
         ];
     }
 }
