@@ -19,7 +19,7 @@ class CreateCompaniesTable extends Migration
             $table->unsignedBigInteger('parent_company_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('parent_company_id')->references('id')->on('companies');
+            $table->foreign('parent_company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 
