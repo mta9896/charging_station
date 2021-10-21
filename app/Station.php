@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Station extends Model implements \JsonSerializable
 {
+    protected $fillable = [
+        'name', 'latitude', 'longitude',
+    ];
+
     public function company()
     {
         return $this->belongsTo(Company::class);
