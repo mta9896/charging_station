@@ -4,10 +4,12 @@
 namespace App\Http\Controllers\Station;
 
 
+use App\Station;
+
 class ShowSingleStationController
 {
-    public function __invoke()
+    public function __invoke(Station $station)
     {
-        // TODO: Implement __invoke() method.
+        return response()->json(['station' => $station]);
     }
 }
