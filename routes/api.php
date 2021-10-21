@@ -27,8 +27,10 @@ Route::post('companies', 'Company\CreateCompanyController');
 Route::put('companies/{company}', 'Company\UpdateCompanyController');
 Route::delete('companies/{company}', 'Company\DeleteCompanyController');
 
-Route::get('stations', 'Station\ListAllStationsController');
+Route::get('companies/{company}/stations', 'Station\ListCompanyStationsController');
+
 Route::get('stations/{station}', 'Station\ShowSingleStationController');
+Route::get('stations', 'Station\ListAllStationsController');
 Route::post('stations', 'Station\CreateStationController');
 Route::put('stations/{station}', 'Station\UpdateStationController');
 Route::delete('stations/{station}', 'Station\DeleteStationController');
