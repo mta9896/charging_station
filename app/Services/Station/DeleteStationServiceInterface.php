@@ -4,7 +4,7 @@
 namespace App\Services\Station;
 
 
-class DeleteStationServiceInterface
+interface DeleteStationServiceInterface
 {
-
+    public function deleteStation(int $stationId);
 }

@@ -4,7 +4,25 @@
 namespace App\Services\Station;
 
 
-class DeleteStationService
-{
+use App\Repository\Company\CompanyRepositoryInterface;
+use App\Repository\Station\StationRepositoryInterface;
 
+class DeleteStationService implements DeleteStationServiceInterface
+{
+    /**
+     * @var StationRepositoryInterface
+     */
+    private $stationRepository;
+
+    public function __construct(CompanyRepositoryInterface $companyRepository, StationRepositoryInterface $stationRepository)
+    {
+        $this->stationRepository = $stationRepository;
+    }
+
+    public function deleteStation(int $stationId)
+    {
+        $station = $this->stationRepository->getStation($stationId);
+
+        $this->stationRepository->deleteStation($station);
+    }
 }

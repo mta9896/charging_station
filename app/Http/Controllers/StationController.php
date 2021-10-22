@@ -8,9 +8,10 @@ use App\Company;
 use App\DTO\StationDTO;
 use App\Http\Resources\Station\StationCollection;
 use App\Http\Resources\Station\StationResource;
-use App\Services\Station\CreateStationService;
 use App\Services\Station\CreateStationServiceInterface;
+use App\Services\Station\DeleteStationServiceInterface;
 use App\Services\Station\ReadStationServiceInterface;
+use App\Services\Station\UpdateStationServiceInterface;
 use App\Station;
 use Illuminate\Http\Request;
 
@@ -26,10 +27,22 @@ class StationController
      */
     private $createStationService;
 
-    public function __construct(ReadStationServiceInterface $readStationService, CreateStationServiceInterface $createStationService)
+    /**
+     * @var UpdateStationServiceInterface
+     */
+    private $updateStationService;
+
+    /**
+     * @var DeleteStationServiceInterface
+     */
+    private $deleteStationService;
+
+    public function __construct(ReadStationServiceInterface $readStationService, CreateStationServiceInterface $createStationService, UpdateStationServiceInterface $updateStationService, DeleteStationServiceInterface $deleteStationService)
     {
         $this->readStationService = $readStationService;
         $this->createStationService = $createStationService;
+        $this->updateStationService = $updateStationService;
+        $this->deleteStationService = $deleteStationService;
     }
 
     public function index()
@@ -67,7 +80,7 @@ class StationController
         return new StationResource($station);
     }
 
-    public function update(Station $station, Request $request)
+    public function update(int $stationId, Request $request)
     {
         $request->validate([
             'station.name' => 'nullable|string',
@@ -75,14 +88,20 @@ class StationController
             'station.longitude' => 'nullable|numeric|between:-180,180',
         ]);
 
-        $station->update($request->get('station'));
+        $stationDTO = new StationDTO(
+            $request->input('station.name'),
+            $request->input('station.latitude'),
+            $request->input('station.longitude')
+        );
+
+        $station = $this->updateStationService->updateStation($stationId, $stationDTO);
 
         return new StationResource($station);
     }
 
-    public function delete(Station $station)
+    public function delete(int $stationId)
     {
-        $station->delete();
+        $this->deleteStationService->deleteStation($stationId);
     }
 
     public function getAllStationsWithinRadius(Request $request)

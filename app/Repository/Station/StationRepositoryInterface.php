@@ -16,4 +16,8 @@ interface StationRepositoryInterface
     public function getStation(int $stationId) : Station;
 
     public function createStation(StationDTO $stationDTO, Company $company) : Station;
+
+    public function updateStation(StationDTO $stationDTO, Station $station);
+
+    public function deleteStation(Station $station);
 }

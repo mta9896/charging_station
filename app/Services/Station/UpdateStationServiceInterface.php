@@ -4,7 +4,9 @@
 namespace App\Services\Station;
 
 
-class UpdateStationServiceInterface
-{
+use App\DTO\StationDTO;
 
+interface UpdateStationServiceInterface
+{
+    public function updateStation(int $stationId, StationDTO $stationDTO);
 }

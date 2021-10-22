@@ -31,4 +31,18 @@ class StationRepository implements StationRepositoryInterface
 
         return $station;
     }
+
+    public function updateStation(StationDTO $stationDTO, Station $station)
+    {
+        $station->update([
+            'name' => $stationDTO->getName(),
+            'latitude' => $stationDTO->getLatitude(),
+            'longitude' => $stationDTO->getLongitude(),
+        ]);
+    }
+
+    public function deleteStation(Station $station)
+    {
+        $station->delete();
+    }
 }

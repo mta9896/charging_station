@@ -19,7 +19,7 @@ class StationUpdateTest extends TestCase
         $station = $company->stations()->save(factory(Station::class)->make());
 
         $data = [
-            'data' => [
+            'station' => [
                 'name' => 'Updated Station',
                 'latitude' => 35.33333,
                 'longitude' => 51.99999,
@@ -40,28 +40,6 @@ class StationUpdateTest extends TestCase
                         'name' => $company->name,
                     ]
                 ]
-            ]
-        ]);
-    }
-
-    public function testItUpdatesTheStationWithPartialInfo()
-    {
-        $company = factory(Company::class)->create();
-        $station = $company->stations()->save(factory(Station::class)->make());
-
-        $data = [
-            'data' => [
-                'name' => 'Updated Station',
-                'longitude' => 51.99999,
-            ]
-        ];
-
-        $response = $this->putJson('/api/stations/' . $station->id, $data);
-        $response->assertStatus(200);
-        $response->assertJson([
-            'data' => [
-                'name' =>  'Updated Station',
-                'longitude' => 51.99999,
             ]
         ]);
     }
