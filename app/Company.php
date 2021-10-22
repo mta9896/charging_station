@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NodeTrait;
 
 class Company extends Model implements \JsonSerializable
 {
+    use NodeTrait;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,12 +25,12 @@ class Company extends Model implements \JsonSerializable
 
     public function parent()
     {
-        return $this->belongsTo(Company::class, 'parent_company_id');
+        return $this->belongsTo(Company::class, 'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany(Company::class, 'parent_company_id');
+        return $this->hasMany(Company::class, 'parent_id');
     }
 
     public function jsonSerialize()
