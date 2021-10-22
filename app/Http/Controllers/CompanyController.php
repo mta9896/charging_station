@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 
 
 use App\Company;
+use App\DTO\CompanyDTO;
 use App\Http\Resources\Company\CompanyCollection;
 use App\Http\Resources\Company\CompanyResource;
+use App\Services\Company\CreateCompanyServiceInterface;
 use App\Services\Company\ReadCompanyServiceInterface;
 use App\Station;
 use Illuminate\Http\Request;
@@ -18,9 +20,15 @@ class CompanyController
      */
     private $readCompanyService;
 
-    public function __construct(ReadCompanyServiceInterface $readCompanyService)
+    /**
+     * @var CreateCompanyServiceInterface
+     */
+    private $createCompanyService;
+
+    public function __construct(ReadCompanyServiceInterface $readCompanyService, CreateCompanyServiceInterface $createCompanyService)
     {
         $this->readCompanyService = $readCompanyService;
+        $this->createCompanyService = $createCompanyService;
     }
 
     public function index()
@@ -44,13 +52,12 @@ class CompanyController
             'company.parentId' => 'nullable|int'
         ]);
 
-        $company = Company::create([
-            'name' => $request->input('company.name')
-        ]);
+        $companyDTO = new CompanyDTO(
+            $request->input('company.name'),
+            $request->input('company.parentId')
+        );
 
-        if (!empty($request->input('company.parentId'))) {
-            $this->assignParentToCompany($company, $request->input('company.parentId'));
-        }
+        $company = $this->createCompanyService->createCompany($companyDTO);
 
         return new CompanyResource($company);
     }

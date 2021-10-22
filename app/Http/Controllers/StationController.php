@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 
 
 use App\Company;
+use App\DTO\StationDTO;
 use App\Http\Resources\Station\StationCollection;
 use App\Http\Resources\Station\StationResource;
+use App\Services\Station\CreateStationService;
+use App\Services\Station\CreateStationServiceInterface;
 use App\Services\Station\ReadStationServiceInterface;
 use App\Station;
 use Illuminate\Http\Request;
@@ -18,9 +21,15 @@ class StationController
      */
     private $readStationService;
 
-    public function __construct(ReadStationServiceInterface $readStationService)
+    /**
+     * @var CreateStationServiceInterface
+     */
+    private $createStationService;
+
+    public function __construct(ReadStationServiceInterface $readStationService, CreateStationServiceInterface $createStationService)
     {
         $this->readStationService = $readStationService;
+        $this->createStationService = $createStationService;
     }
 
     public function index()
@@ -46,12 +55,14 @@ class StationController
             'station.companyId' => 'required|int',
         ]);
 
-        $company = Company::findOrFail($request->input('station.companyId'));
-        $station = $company->stations()->create([
-            'name' => $request->input('station.name'),
-            'latitude' => $request->input('station.latitude'),
-            'longitude' => $request->input('station.longitude'),
-        ]);
+        $stationDTO = new StationDTO(
+            $request->input('station.name'),
+            $request->input('station.latitude'),
+            $request->input('station.longitude'),
+            $request->input('station.companyId')
+        );
+
+        $station = $this->createStationService->createStation($stationDTO);
 
         return new StationResource($station);
     }
