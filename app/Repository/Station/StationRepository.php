@@ -5,6 +5,7 @@ namespace App\Repository\Station;
 
 
 use App\Company;
+use App\Constants\CoordinatesConstants;
 use App\DTO\LocationDTO;
 use App\DTO\StationDTO;
 use App\Station;
@@ -50,13 +51,14 @@ class StationRepository implements StationRepositoryInterface
     public function getStationsWithinRadius(LocationDTO $locationDTO)
     {
         $query = "
-            SELECT id, name, latitude, longitude, company_id, ( 6371 * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:latitude) ) * sin(radians(latitude)) ) ) AS distance
+            SELECT id, name, latitude, longitude, company_id, ( :earthRad * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:latitude) ) * sin(radians(latitude)) ) ) AS distance
             FROM stations
             HAVING distance < :distance
             ORDER BY distance
         ";
 
         $result = \DB::select($query,[
+            'earthRad' => CoordinatesConstants::EARTH_RADIUS_KILOMETERS,
             'lat' => $locationDTO->getLatitude(),
             'long' => $locationDTO->getLongitude(),
             'latitude' => $locationDTO->getLatitude(),
