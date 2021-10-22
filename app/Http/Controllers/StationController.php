@@ -132,12 +132,9 @@ class StationController
         return new StationCollection($stations);
     }
 
-    public function getAllStationsByCompany(Company $company)
+    public function getAllStationsByCompany(int $companyId)
     {
-        $companies = Company::descendantsAndSelf($company->id);
-        $companyIds = $companies->pluck('id');
-
-        $stations = Station::whereIn('company_id', $companyIds)->get();
+        $stations = $this->stationsInCompanyTreeService->getAllCompanyStations($companyId);
 
         return new StationCollection($stations);
     }

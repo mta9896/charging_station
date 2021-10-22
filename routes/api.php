@@ -25,11 +25,11 @@ Route::get('companies/{companyId}', 'CompanyController@show');
 Route::post('companies', 'CompanyController@create');
 Route::put('companies/{companyId}', 'CompanyController@update');
 Route::delete('companies/{companyId}', 'CompanyController@delete');
-Route::get('companies/{company}/stations', 'StationController@getAllStationsByCompany');
+Route::get('companies/{companyId}/stations', 'StationController@getAllStationsByCompany');
 
 Route::get('stations/{stationId}', 'StationController@show');
 Route::get('stations', 'StationController@index');
 Route::post('stations', 'StationController@create');
-Route::put('stations/{station}', 'StationController@update');
-Route::delete('stations/{station}', 'StationController@delete');
+Route::put('stations/{stationId}', 'StationController@update');
+Route::delete('stations/{stationId}', 'StationController@delete');
 Route::get('stations/list/point', 'StationController@getAllStationsWithinRadius');

@@ -65,4 +65,9 @@ class StationRepository implements StationRepositoryInterface
 
         return $result;
     }
+
+    public function getStationsByCompanyIds(Collection $companyIds)
+    {
+        return Station::whereIn('company_id', $companyIds)->get();
+    }
 }

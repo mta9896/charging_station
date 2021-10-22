@@ -23,4 +23,6 @@ interface StationRepositoryInterface
     public function deleteStation(Station $station);
 
     public function getStationsWithinRadius(LocationDTO $locationDTO);
+
+    public function getStationsByCompanyIds(Collection $companyIds);
 }

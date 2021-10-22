@@ -86,16 +86,6 @@ class CompanyStationsTest extends TestCase
             'name' => $station->name,
             'latitude' => $station->latitude,
             'longitude' => $station->longitude,
-            'createdAt' => $station->created_at->toAtomString(),
-            'updatedAt' => $station->updated_at->toAtomString(),
-            'company' => [
-                [
-                    'id' => $station->company()->first()->id,
-                    'name' => $station->company()->first()->name,
-                    'createdAt' => $station->company()->first()->created_at->toAtomString(),
-                    'updatedAt' => $station->company()->first()->updated_at->toAtomString(),
-                ]
-            ],
         ];
     }
 }
