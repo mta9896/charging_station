@@ -19,17 +19,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-// route group
 Route::get('companies', 'CompanyController@index');
 Route::get('companies/{companyId}', 'CompanyController@show');
 Route::post('companies', 'CompanyController@create');
 Route::put('companies/{companyId}', 'CompanyController@update');
 Route::delete('companies/{companyId}', 'CompanyController@delete');
-Route::get('companies/{companyId}/stations', 'StationController@getAllStationsByCompany');
 
-Route::get('stations/{stationId}', 'StationController@show');
-Route::get('stations', 'StationController@index');
 Route::post('stations', 'StationController@create');
 Route::put('stations/{stationId}', 'StationController@update');
 Route::delete('stations/{stationId}', 'StationController@delete');
-Route::get('stations/list/point', 'StationController@getAllStationsWithinRadius');
+
+Route::get('stations', 'StationListController@index');
+Route::get('stations/{stationId}', 'StationListController@show');
+Route::get('stations/list/point', 'StationListController@getAllStationsWithinRadius');
+Route::get('companies/{companyId}/stations', 'StationListController@getAllStationsByCompany');
