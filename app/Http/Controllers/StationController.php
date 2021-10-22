@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 
 use App\Company;
+use App\Http\Resources\Station\StationCollection;
+use App\Http\Resources\Station\StationResource;
 use App\Station;
 use Illuminate\Http\Request;
 
@@ -14,12 +16,12 @@ class StationController
     {
         $stations = Station::with('company')->get();
 
-        return response()->json(['stations' => $stations]);
+        return new StationCollection($stations);
     }
 
     public function show(Station $station)
     {
-        return response()->json(['station' => $station]);
+        return new StationResource($station);
     }
 
     public function create(Request $request)
@@ -38,7 +40,7 @@ class StationController
             'longitude' => $request->input('station.longitude'),
         ]);
 
-        return response()->json(['station' => $station]);
+        return new StationResource($station);
     }
 
     public function update(Station $station, Request $request)
@@ -51,7 +53,7 @@ class StationController
 
         $station->update($request->get('station'));
 
-        return response()->json(['station' => $station]);
+        return new StationResource($station);
     }
 
     public function delete(Station $station)

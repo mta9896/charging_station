@@ -26,9 +26,9 @@ class StationCreateTest extends TestCase
         ];
 
         $response = $this->postJson('/api/stations', $data);
-        $response->assertStatus(200);
+        $response->assertStatus(201);
         $response->assertJson([
-            'station' => [
+            'data' => [
                 'name' =>  'New Station',
                 'latitude' => 35.33333,
                 'longitude' => 51.99999,

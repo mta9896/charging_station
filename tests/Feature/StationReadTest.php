@@ -23,7 +23,7 @@ class StationReadTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'station' => $this->serializeStation($station),
+            'data' => $this->serializeStation($station),
         ]);
     }
 
@@ -41,7 +41,7 @@ class StationReadTest extends TestCase
         $response = $this->getJson('/api/stations');
         $response->assertStatus(200);
         $response->assertJson([
-            'stations' => $this->serializeStationsArray($allStations),
+            'data' => $this->serializeStationsArray($allStations),
         ]);
     }
 
@@ -50,7 +50,7 @@ class StationReadTest extends TestCase
         $response = $this->getJson('/api/stations');
         $response->assertStatus(200);
         $response->assertJson([
-            'stations' => [],
+            'data' => [],
         ]);
     }
 
@@ -60,40 +60,6 @@ class StationReadTest extends TestCase
 
         $response->assertStatus(404);
     }
-
-//    //////////////
-//    public function testItReturnsStationsListByCompanyId()
-//    {
-//        $company = factory(Company::class)->create();
-//        $stations = $company->stations()->saveMany(factory(Station::class)->times(2)->make());
-//
-//        $response = $this->getJson('/api/companies/'.$company->id.'/stations');
-//
-//        $response->assertStatus(200);
-//        $response->assertJson([
-//            'stations' => $this->serializeStationsArray($stations),
-//        ]);
-//    }
-//
-//    ///////////////
-//    public function testItReturnsAllStationsForCompaniesRecursively()
-//    {
-//        $company = factory(Company::class)->create();
-//        $stations = $company->stations()->saveMany(factory(Station::class)->times(2)->make());
-//
-//        $childCompanyLevel1 = factory(Company::class)->create();
-//        $childStations = $childCompanyLevel1->stations()->saveMany(factory(Station::class)->times(4)->make());
-//        $company->children()->save($childCompanyLevel1);
-//
-//        $allStations = $stations->merge($childStations);
-//
-//        $response = $this->getJson('/api/companies/'.$company->id.'/stations');
-//
-//        $response->assertStatus(200);
-//        $response->assertJson([
-//            'stations' => $this->serializeStationsArray($allStations),
-//        ]);
-//    }
 
     private function serializeStationsArray(Collection $stations)
     {
@@ -112,8 +78,6 @@ class StationReadTest extends TestCase
             'name' => $station->name,
             'latitude' => $station->latitude,
             'longitude' => $station->longitude,
-            'createdAt' => $station->created_at->toAtomString(),
-            'updatedAt' => $station->updated_at->toAtomString(),
             'company' => [
                 [
                     'id' => $station->company()->first()->id,
