@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
 
-class Company extends Model implements \JsonSerializable
+class Company extends Model
 {
     use NodeTrait;
 
@@ -31,16 +31,5 @@ class Company extends Model implements \JsonSerializable
     public function children()
     {
         return $this->hasMany(Company::class, 'parent_id');
-    }
-
-    public function jsonSerialize()
-    {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'createdAt' => $this->created_at->toAtomString(),
-            'updatedAt' => $this->updated_at->toAtomString(),
-            'parentCompany' => $this->parent()->get(),
-        ];
     }
 }
