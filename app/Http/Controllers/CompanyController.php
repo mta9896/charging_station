@@ -6,14 +6,14 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\DTO\CompanyDTO;
+use App\Http\Requests\CreateCompanyRequest;
+use App\Http\Requests\UpdateCompanyRequest;
 use App\Http\Resources\Company\CompanyCollection;
 use App\Http\Resources\Company\CompanyResource;
 use App\Services\Company\CreateCompanyServiceInterface;
 use App\Services\Company\DeleteCompanyService;
 use App\Services\Company\ReadCompanyServiceInterface;
 use App\Services\Company\UpdateCompanyServiceInterface;
-use App\Station;
-use Illuminate\Http\Request;
 
 class CompanyController
 {
@@ -59,13 +59,8 @@ class CompanyController
         return new CompanyResource($company);
     }
 
-    public function create(Request $request)
+    public function create(CreateCompanyRequest $request)
     {
-        $request->validate([
-            'company.name' => 'required|string',
-            'company.parentId' => 'nullable|int'
-        ]);
-
         $companyDTO = new CompanyDTO(
             $request->input('company.name'),
             $request->input('company.parentId')
@@ -76,12 +71,8 @@ class CompanyController
         return new CompanyResource($company);
     }
 
-    public function update(int $companyId, Request $request)
+    public function update(int $companyId, UpdateCompanyRequest $request)
     {
-        $request->validate([
-            'company.name' => 'required|string',
-        ]);
-
         $companyDTO = new CompanyDTO(
             $request->input('company.name')
         );

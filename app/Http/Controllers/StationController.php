@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 
 use App\DTO\StationDTO;
+use App\Http\Requests\CreateStationRequest;
+use App\Http\Requests\UpdateStationRequest;
 use App\Http\Resources\Station\StationResource;
 use App\Services\Station\CreateStationServiceInterface;
 use App\Services\Station\DeleteStationServiceInterface;
@@ -35,15 +37,8 @@ class StationController
         $this->deleteStationService = $deleteStationService;
     }
 
-    public function create(Request $request)
+    public function create(CreateStationRequest $request)
     {
-        $request->validate([
-            'station.name' => 'required|string',
-            'station.latitude' => 'required|numeric|between:-90,90',
-            'station.longitude' => 'required|numeric|between:-180,180',
-            'station.companyId' => 'required|int',
-        ]);
-
         $stationDTO = new StationDTO(
             $request->input('station.name'),
             $request->input('station.latitude'),
@@ -56,14 +51,8 @@ class StationController
         return new StationResource($station);
     }
 
-    public function update(int $stationId, Request $request)
+    public function update(int $stationId, UpdateStationRequest $request)
     {
-        $request->validate([
-            'station.name' => 'nullable|string',
-            'station.latitude' => 'nullable|numeric|between:-90,90',
-            'station.longitude' => 'nullable|numeric|between:-180,180',
-        ]);
-
         $stationDTO = new StationDTO(
             $request->input('station.name'),
             $request->input('station.latitude'),
