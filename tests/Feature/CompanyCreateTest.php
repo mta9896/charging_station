@@ -45,9 +45,7 @@ class CompanyCreateTest extends TestCase
             'data' => [
                 'name' => 'Test Child Company',
                 'parentCompany' => [
-                    [
-                        'id' => $parentCompany->id,
-                    ]
+                    'id' => $parentCompany->id,
                 ]
             ],
         ]);

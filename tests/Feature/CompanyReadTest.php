@@ -83,15 +83,9 @@ class CompanyReadTest extends TestCase
         return [
             'id' => $company->id,
             'name' => $company->name,
-            'createdAt' => $company->created_at->toAtomString(),
-            'updatedAt' => $company->updated_at->toAtomString(),
             'parentCompany' => empty($company->parent()->count()) ? [] : [
-                [
-                    'id' => $company->parent()->first()->id,
-                    'name' => $company->parent()->first()->name,
-                    'createdAt' => $company->parent()->first()->created_at->toAtomString(),
-                    'updatedAt' => $company->parent()->first()->updated_at->toAtomString(),
-                ]
+                'id' => $company->parent()->first()->id,
+                'name' => $company->parent()->first()->name,
             ]
         ];
     }

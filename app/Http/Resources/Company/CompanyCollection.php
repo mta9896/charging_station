@@ -14,8 +14,17 @@ class CompanyCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        $companies = [];
+        foreach ($this->collection as $company) {
+            $companies [] = [
+                'id' => $company->id,
+                'name' => $company->name,
+                'parentCompany' => new CompanyResource($company->parent),
+            ];
+        }
+
         return [
-            'data' => $this->collection,
+            'data' => $companies,
         ];
     }
 }
