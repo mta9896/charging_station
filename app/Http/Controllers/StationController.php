@@ -7,20 +7,33 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Http\Resources\Station\StationCollection;
 use App\Http\Resources\Station\StationResource;
+use App\Services\Station\ReadStationServiceInterface;
 use App\Station;
 use Illuminate\Http\Request;
 
 class StationController
 {
+    /**
+     * @var ReadStationServiceInterface
+     */
+    private $readStationService;
+
+    public function __construct(ReadStationServiceInterface $readStationService)
+    {
+        $this->readStationService = $readStationService;
+    }
+
     public function index()
     {
-        $stations = Station::with('company')->get();
+        $stations = $this->readStationService->listStations();
 
         return new StationCollection($stations);
     }
 
-    public function show(Station $station)
+    public function show(int $stationId)
     {
+        $station = $this->readStationService->showSingleStation($stationId);
+
         return new StationResource($station);
     }
 

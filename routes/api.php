@@ -21,13 +21,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // route group
 Route::get('companies', 'CompanyController@index');
-Route::get('companies/{company}', 'CompanyController@show');
+Route::get('companies/{companyId}', 'CompanyController@show');
 Route::post('companies', 'CompanyController@create');
 Route::put('companies/{company}', 'CompanyController@update');
 Route::delete('companies/{company}', 'CompanyController@delete');
 Route::get('companies/{company}/stations', 'StationController@getAllStationsByCompany');
 
-Route::get('stations/{station}', 'StationController@show');
+Route::get('stations/{stationId}', 'StationController@show');
 Route::get('stations', 'StationController@index');
 Route::post('stations', 'StationController@create');
 Route::put('stations/{station}', 'StationController@update');

@@ -7,20 +7,33 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Http\Resources\Company\CompanyCollection;
 use App\Http\Resources\Company\CompanyResource;
+use App\Services\Company\ReadCompanyServiceInterface;
 use App\Station;
 use Illuminate\Http\Request;
 
 class CompanyController
 {
+    /**
+     * @var ReadCompanyServiceInterface
+     */
+    private $readCompanyService;
+
+    public function __construct(ReadCompanyServiceInterface $readCompanyService)
+    {
+        $this->readCompanyService = $readCompanyService;
+    }
+
     public function index()
     {
-        $companies = Company::with('parent')->get();
+        $companies = $this->readCompanyService->listCompanies();
 
         return new CompanyCollection($companies);
     }
 
-    public function show(Company $company)
+    public function show(int $companyId)
     {
+        $company = $this->readCompanyService->showSingleCompany($companyId);
+
         return new CompanyResource($company);
     }
 
