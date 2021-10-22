@@ -58,4 +58,27 @@ class StationController
     {
         $station->delete();
     }
+
+    public function getAllStationsWithinRadius(Request $request)
+    {
+        $distance = $request->get('distance');
+        $latitude = $request->get('latitude');
+        $longitude = $request->get('longitude');
+
+        $query = "
+            SELECT id, name, latitude, longitude, ( 6371 * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:latitude) ) * sin(radians(latitude)) ) ) AS distance
+            FROM stations
+            HAVING distance < :distance
+            ORDER BY distance
+        ";
+
+        $result = \DB::select($query,[
+            'lat' => $latitude,
+            'long' => $longitude,
+            'latitude' => $latitude,
+            'distance' => $distance,
+        ]);
+
+        return response()->json(['stations' => $result]);
+    }
 }

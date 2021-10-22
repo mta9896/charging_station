@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Company\ListAllCompaniesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +32,4 @@ Route::get('stations', 'StationController@index');
 Route::post('stations', 'StationController@create');
 Route::put('stations/{station}', 'StationController@update');
 Route::delete('stations/{station}', 'StationController@delete');
+Route::get('stations/list/point', 'StationController@getAllStationsWithinRadius');
