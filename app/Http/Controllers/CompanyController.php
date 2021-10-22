@@ -9,7 +9,9 @@ use App\DTO\CompanyDTO;
 use App\Http\Resources\Company\CompanyCollection;
 use App\Http\Resources\Company\CompanyResource;
 use App\Services\Company\CreateCompanyServiceInterface;
+use App\Services\Company\DeleteCompanyService;
 use App\Services\Company\ReadCompanyServiceInterface;
+use App\Services\Company\UpdateCompanyServiceInterface;
 use App\Station;
 use Illuminate\Http\Request;
 
@@ -25,10 +27,22 @@ class CompanyController
      */
     private $createCompanyService;
 
-    public function __construct(ReadCompanyServiceInterface $readCompanyService, CreateCompanyServiceInterface $createCompanyService)
+    /**
+     * @var UpdateCompanyServiceInterface
+     */
+    private $updateCompanyService;
+
+    /**
+     * @var DeleteCompanyService
+     */
+    private $deleteCompanyService;
+
+    public function __construct(ReadCompanyServiceInterface $readCompanyService, CreateCompanyServiceInterface $createCompanyService, UpdateCompanyServiceInterface $updateCompanyService, DeleteCompanyService $deleteCompanyService)
     {
         $this->readCompanyService = $readCompanyService;
         $this->createCompanyService = $createCompanyService;
+        $this->updateCompanyService = $updateCompanyService;
+        $this->deleteCompanyService = $deleteCompanyService;
     }
 
     public function index()
@@ -62,25 +76,23 @@ class CompanyController
         return new CompanyResource($company);
     }
 
-    public function update(Company $company, Request $request)
+    public function update(int $companyId, Request $request)
     {
         $request->validate([
             'company.name' => 'required|string',
         ]);
 
-        $company->update($request->get('company'));
+        $companyDTO = new CompanyDTO(
+            $request->input('company.name')
+        );
+
+        $company = $this->updateCompanyService->updateCompany($companyDTO, $companyId);
 
         return new CompanyResource($company);
     }
 
-    public function delete(Company $company)
+    public function delete(int $companyId)
     {
-        $company->delete();
-    }
-
-    private function assignParentToCompany(Company $company, int $parentId)
-    {
-        $parentCompany = Company::findOrFail($parentId);
-        $parentCompany->children()->save($company);
+        $this->deleteCompanyService->deleteCompany($companyId);
     }
 }

@@ -32,4 +32,16 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         $parentCompany->children()->save($childCompany);
     }
+
+    public function updateCompany(Company $company, CompanyDTO $companyDTO)
+    {
+        $company->update([
+            'name' => $companyDTO->getName(),
+        ]);
+    }
+
+    public function deleteCompany(Company $company)
+    {
+        $company->delete();
+    }
 }

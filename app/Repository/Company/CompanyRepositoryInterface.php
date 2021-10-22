@@ -17,4 +17,8 @@ interface CompanyRepositoryInterface
     public function createCompany(CompanyDTO $companyDTO) : Company;
 
     public function assignCompanyToParent(Company $parentCompany, Company $childCompany);
+
+    public function updateCompany(Company $company, CompanyDTO $companyDTO);
+
+    public function deleteCompany(Company $company);
 }
