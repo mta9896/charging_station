@@ -21,9 +21,9 @@ class CompanyCreateTest extends TestCase
         ];
 
         $response = $this->postJson('/api/companies', $data);
-        $response->assertStatus(200);
+        $response->assertStatus(201);
         $response->assertJson([
-            'company' => [
+            'data' => [
                 'name' => 'Test Parent Company',
             ],
         ]);
@@ -40,9 +40,9 @@ class CompanyCreateTest extends TestCase
         ];
 
         $response = $this->postJson('/api/companies', $data);
-        $response->assertStatus(200);
+        $response->assertStatus(201);
         $response->assertJson([
-            'company' => [
+            'data' => [
                 'name' => 'Test Child Company',
                 'parentCompany' => [
                     [

@@ -25,7 +25,7 @@ class CompanyUpdateTest extends TestCase
         $response = $this->putJson('/api/companies/' . $company->id, $data);
         $response->assertStatus(200);
         $response->assertJson([
-            'company' => [
+            'data' => [
                 'name' => 'New Company Title',
             ],
         ]);

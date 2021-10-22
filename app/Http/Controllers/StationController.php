@@ -83,4 +83,14 @@ class StationController
 
         return response()->json(['stations' => $result]);
     }
+
+    public function getAllStationsByCompany(Company $company)
+    {
+        $companies = Company::descendantsAndSelf($company->id);
+        $companyIds = $companies->pluck('id');
+
+        $stations = Station::whereIn('company_id', $companyIds)->get();
+
+        return new StationCollection($stations);
+    }
 }

@@ -25,7 +25,7 @@ Route::get('companies/{company}', 'CompanyController@show');
 Route::post('companies', 'CompanyController@create');
 Route::put('companies/{company}', 'CompanyController@update');
 Route::delete('companies/{company}', 'CompanyController@delete');
-Route::get('companies/{company}/stations', 'CompanyController@getAllStationsByCompany');
+Route::get('companies/{company}/stations', 'StationController@getAllStationsByCompany');
 
 Route::get('stations/{station}', 'StationController@show');
 Route::get('stations', 'StationController@index');

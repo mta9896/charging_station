@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 
 use App\Company;
+use App\Http\Resources\Company\CompanyCollection;
+use App\Http\Resources\Company\CompanyResource;
 use App\Station;
 use Illuminate\Http\Request;
 
@@ -14,12 +16,12 @@ class CompanyController
     {
         $companies = Company::with('parent')->get();
 
-        return response()->json(['companies' => $companies]);
+        return new CompanyCollection($companies);
     }
 
     public function show(Company $company)
     {
-        return response()->json(['company' => $company]);
+        return new CompanyResource($company);
     }
 
     public function create(Request $request)
@@ -37,7 +39,7 @@ class CompanyController
             $this->assignParentToCompany($company, $request->input('company.parentId'));
         }
 
-        return response()->json(['company' => $company]);
+        return new CompanyResource($company);
     }
 
     public function update(Company $company, Request $request)
@@ -48,22 +50,12 @@ class CompanyController
 
         $company->update($request->get('company'));
 
-        return response()->json(['company' => $company]);
+        return new CompanyResource($company);
     }
 
     public function delete(Company $company)
     {
         $company->delete();
-    }
-
-    public function getAllStationsByCompany(Company $company)
-    {
-        $companies = Company::descendantsAndSelf($company->id);
-        $companyIds = $companies->pluck('id');
-
-        $stations = Station::whereIn('company_id', $companyIds)->get();
-
-        return response()->json(['stations' => $stations]);
     }
 
     private function assignParentToCompany(Company $company, int $parentId)

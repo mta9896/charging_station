@@ -20,7 +20,7 @@ class CompanyReadTest extends TestCase
         $response = $this->getJson('/api/companies/' . $company->id);
         $response->assertStatus(200);
         $response->assertJson([
-           'company' => $this->serializeCompany($company),
+           'data' => $this->serializeCompany($company),
         ]);
 
     }
@@ -34,7 +34,7 @@ class CompanyReadTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'companies' => $this->serializeCompaniesArray($companies),
+            'data' => $this->serializeCompaniesArray($companies),
         ]);
     }
 
@@ -48,7 +48,7 @@ class CompanyReadTest extends TestCase
         $response = $this->getJson('/api/companies');
         $response->assertStatus(200);
         $response->assertJson([
-            'companies' => $this->serializeCompaniesArray($companies->merge($childrenCompanies)),
+            'data' => $this->serializeCompaniesArray($companies->merge($childrenCompanies)),
         ]);
     }
 
@@ -57,7 +57,7 @@ class CompanyReadTest extends TestCase
         $response = $this->getJson('/api/companies');
         $response->assertStatus(200);
         $response->assertJson([
-            'companies' => [],
+            'data' => [],
         ]);
     }
 

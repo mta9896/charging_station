@@ -32,7 +32,7 @@ class CompanyStationsTest extends TestCase
         $response = $this->getJson('/api/companies/'.$parentCompany->id.'/stations');
         $response->assertStatus(200);
         $response->assertJson([
-            'stations' => $this->serializeStationsArray($expectedStations),
+            'data' => $this->serializeStationsArray($expectedStations),
         ]);
     }
 
@@ -57,7 +57,7 @@ class CompanyStationsTest extends TestCase
         $response = $this->getJson('/api/companies/'.($childCompaniesLevel1[0])->id.'/stations');
         $response->assertStatus(200);
         $response->assertJson([
-            'stations' => $this->serializeStationsArray($expectedStations),
+            'data' => $this->serializeStationsArray($expectedStations),
         ]);
 
     }
