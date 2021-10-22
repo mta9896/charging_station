@@ -7,6 +7,7 @@ namespace Tests\Feature;
 use App\Company;
 use App\Station;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class ListStationWithinRadiusTest extends TestCase
@@ -42,9 +43,35 @@ class ListStationWithinRadiusTest extends TestCase
             'longitude' => 51.416806,
         ])); // 1.18 kilometers
 
-        dd("here");
-        //assert not exists
+        $expectedStations = new Collection();
+        $expectedStations->push($station2);
+        $expectedStations->push($station1);
+        $expectedStations->push($station4);
+
         $latitude = 35.750500;
         $longitude = 51.405250;
+        $distance = 1;
+
+        $response = $this->getJson("/api/stations/list/point?distance=$distance&latitude=$latitude&longitude=$longitude");
+        $response->assertStatus(200);
+
+        $response->assertJson([
+            'data' => $this->collectStations($expectedStations),
+        ]);
+    }
+
+    private function collectStations(Collection $stations)
+    {
+        $result = [];
+        foreach ($stations as $station) {
+            $result [] = [
+                'id' => $station->id,
+                'name' => $station->name,
+                'latitude' => $station->latitude,
+                'longitude' => $station->longitude,
+            ];
+        }
+
+        return $result;
     }
 }

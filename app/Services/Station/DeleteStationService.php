@@ -14,7 +14,7 @@ class DeleteStationService implements DeleteStationServiceInterface
      */
     private $stationRepository;
 
-    public function __construct(CompanyRepositoryInterface $companyRepository, StationRepositoryInterface $stationRepository)
+    public function __construct(StationRepositoryInterface $stationRepository)
     {
         $this->stationRepository = $stationRepository;
     }

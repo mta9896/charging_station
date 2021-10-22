@@ -5,6 +5,7 @@ namespace App\Repository\Station;
 
 
 use App\Company;
+use App\DTO\LocationDTO;
 use App\DTO\StationDTO;
 use App\Station;
 use Illuminate\Support\Collection;
@@ -20,4 +21,6 @@ interface StationRepositoryInterface
     public function updateStation(StationDTO $stationDTO, Station $station);
 
     public function deleteStation(Station $station);
+
+    public function getStationsWithinRadius(LocationDTO $locationDTO);
 }

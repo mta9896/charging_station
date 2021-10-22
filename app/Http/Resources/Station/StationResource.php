@@ -2,10 +2,21 @@
 
 namespace App\Http\Resources\Station;
 
+use App\Http\Resources\Company\CompanyResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StationResource extends JsonResource
 {
+    /**
+     * @var bool
+     */
+    private $shouldIncludeDistance;
+
+    public function __construct($resource)
+    {
+        parent::__construct($resource);
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -19,7 +30,8 @@ class StationResource extends JsonResource
             'name' => $this->name,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'company' => $this->company()->get(),
+//            'company' => $this->company()->get(),
+//            'company' => CompanyResource::collection($this->company)
         ];
     }
 }
