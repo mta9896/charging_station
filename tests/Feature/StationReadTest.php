@@ -61,6 +61,52 @@ class StationReadTest extends TestCase
         $response->assertStatus(404);
     }
 
+    public function testItReturnsAllStationsWithinRadiusFromAPoint()
+    {
+        $company = factory(Company::class)->create();
+
+        $station1 = $company->stations()->save(factory(Station::class)->make([
+            'latitude' => 35.757234,
+            'longitude' => 51.403876,
+        ])); // 700 meters
+
+        $station2 = $company->stations()->save(factory(Station::class)->make([
+            'latitude' => 35.751693,
+            'longitude' => 51.410621,
+        ])); // 500 meters
+
+        $station3 = $company->stations()->save(factory(Station::class)->make([
+            'latitude' => 35.741780,
+            'longitude' => 51.402093,
+        ])); // 1.01 kilometer
+
+        $station4 = $company->stations()->save(factory(Station::class)->make([
+            'latitude' => 35.743531,
+            'longitude' => 51.400763,
+        ])); // 800 meters
+
+        $station5 = $company->stations()->save(factory(Station::class)->make([
+            'latitude' => 35.740493,
+            'longitude' => 51.416806,
+        ])); // 1.18 kilometers
+
+        $expectedStations = new Collection();
+        $expectedStations->push($station2);
+        $expectedStations->push($station1);
+        $expectedStations->push($station4);
+
+        $latitude = 35.750500;
+        $longitude = 51.405250;
+        $distance = 1;
+
+        $response = $this->getJson("/api/stations/list/point?distance=$distance&latitude=$latitude&longitude=$longitude");
+        $response->assertStatus(200);
+
+        $response->assertJson([
+            'data' => $this->serializeStationsArray($expectedStations),
+        ]);
+    }
+
     private function serializeStationsArray(Collection $stations)
     {
         $result = [];
@@ -79,12 +125,10 @@ class StationReadTest extends TestCase
             'latitude' => $station->latitude,
             'longitude' => $station->longitude,
             'company' => [
-                [
-                    'id' => $station->company()->first()->id,
-                    'name' => $station->company()->first()->name,
-                    'createdAt' => $station->company()->first()->created_at->toAtomString(),
-                    'updatedAt' => $station->company()->first()->updated_at->toAtomString(),
-                ]
+                'id' => $station->company()->first()->id,
+                'name' => $station->company()->first()->name,
+                'createdAt' => $station->company()->first()->created_at->toAtomString(),
+                'updatedAt' => $station->company()->first()->updated_at->toAtomString(),
             ],
         ];
     }

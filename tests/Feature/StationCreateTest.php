@@ -33,10 +33,8 @@ class StationCreateTest extends TestCase
                 'latitude' => 35.33333,
                 'longitude' => 51.99999,
                 'company' => [
-                    [
-                        'id' => $company->id,
-                        'name' => $company->name,
-                    ]
+                    'id' => $company->id,
+                    'name' => $company->name,
                 ]
             ]
         ]);

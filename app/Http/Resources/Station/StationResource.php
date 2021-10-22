@@ -30,8 +30,7 @@ class StationResource extends JsonResource
             'name' => $this->name,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-//            'company' => $this->company()->get(),
-//            'company' => CompanyResource::collection($this->company)
+            'company' => new CompanyResource($this->company),
         ];
     }
 }

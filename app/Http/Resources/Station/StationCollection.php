@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Station;
 
+use App\Http\Resources\Company\CompanyResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class StationCollection extends ResourceCollection
@@ -14,8 +15,18 @@ class StationCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        $stations = [];
+        foreach ($this->collection as $station) {
+            $stations [] = [
+                'id' => $station->id,
+                'name' => $station->name,
+                'latitude' => $station->latitude,
+                'longitude' => $station->longitude,
+                'company' => new CompanyResource($station->company),
+            ];
+        }
         return [
-            'data' => $this->collection,
+            'data' => $stations,
         ];
     }
 }
