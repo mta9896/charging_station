@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Company;
+use App\Station;
 use Illuminate\Http\Request;
 
 class CompanyController
@@ -53,6 +54,16 @@ class CompanyController
     public function delete(Company $company)
     {
         $company->delete();
+    }
+
+    public function getAllStationsByCompany(Company $company)
+    {
+        $companies = Company::descendantsAndSelf($company->id);
+        $companyIds = $companies->pluck('id');
+
+        $stations = Station::whereIn('company_id', $companyIds)->get();
+
+        return response()->json(['stations' => $stations]);
     }
 
     private function assignParentToCompany(Company $company, int $parentId)
