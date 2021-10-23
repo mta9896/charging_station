@@ -8,11 +8,12 @@ use App\Company;
 use App\DTO\LocationDTO;
 use App\DTO\StationDTO;
 use App\Station;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 interface StationRepositoryInterface
 {
-    public function getStationsList() : Collection;
+    public function getStationsList() : LengthAwarePaginator;
 
     public function getStation(int $stationId) : Station;
 

@@ -6,11 +6,12 @@ namespace App\Repository\Company;
 
 use App\Company;
 use App\DTO\CompanyDTO;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 interface CompanyRepositoryInterface
 {
-    public function getCompaniesList() : Collection;
+    public function getCompaniesList() : LengthAwarePaginator;
 
     public function getCompany(int $companyId) : Company;
 

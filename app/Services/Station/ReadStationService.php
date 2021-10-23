@@ -6,6 +6,7 @@ namespace App\Services\Station;
 
 use App\Repository\Station\StationRepositoryInterface;
 use App\Station;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class ReadStationService implements ReadStationServiceInterface
@@ -20,7 +21,7 @@ class ReadStationService implements ReadStationServiceInterface
         $this->stationRepository = $stationRepository;
     }
 
-    public function listStations(): Collection
+    public function listStations(): LengthAwarePaginator
     {
         return $this->stationRepository->getStationsList();
     }

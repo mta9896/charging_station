@@ -25,16 +25,22 @@ class CompanyReadTest extends TestCase
 
     }
 
-    public function testItReturnsCompaniesList()
+    public function testItReturnsCompaniesListWithPagination()
     {
-        $companies = factory(Company::class)->times(10)->create();
+        $companies = factory(Company::class)->times(20)->create();
 
         $response = $this->getJson('/api/companies');
 
+        $response->assertStatus(200);
+        $response->assertJson([
+            'data' => $this->serializeCompaniesArray($companies->slice(0, 10)),
+        ]);
+
+        $response = $this->getJson('/api/companies?page=2');
 
         $response->assertStatus(200);
         $response->assertJson([
-            'data' => $this->serializeCompaniesArray($companies),
+            'data' => $this->serializeCompaniesArray($companies->slice(10, 10)),
         ]);
     }
 

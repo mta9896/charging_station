@@ -27,7 +27,7 @@ class StationReadTest extends TestCase
         ]);
     }
 
-    public function testItReturnsAllStations()
+    public function testItReturnsAllStationsWithPagination()
     {
         $companyOne = factory(Company::class)->create();
         $companyOneStations = $companyOne->stations()->saveMany(factory(Station::class)->times(10)->make());
@@ -41,7 +41,19 @@ class StationReadTest extends TestCase
         $response = $this->getJson('/api/stations');
         $response->assertStatus(200);
         $response->assertJson([
-            'data' => $this->serializeStationsArray($allStations),
+            'data' => $this->serializeStationsArray($allStations->slice(0, 10)),
+        ]);
+
+        $response = $this->getJson('/api/stations?page=2');
+        $response->assertStatus(200);
+        $response->assertJson([
+            'data' => $this->serializeStationsArray($allStations->slice(10, 10)),
+        ]);
+
+        $response = $this->getJson('/api/stations?page=3');
+        $response->assertStatus(200);
+        $response->assertJson([
+            'data' => $this->serializeStationsArray($allStations->slice(20, 10)),
         ]);
     }
 

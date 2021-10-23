@@ -6,16 +6,18 @@ namespace App\Repository\Station;
 
 use App\Company;
 use App\Constants\CoordinatesConstants;
+use App\Constants\PaginationConstants;
 use App\DTO\LocationDTO;
 use App\DTO\StationDTO;
 use App\Station;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class StationRepository implements StationRepositoryInterface
 {
-    public function getStationsList() : Collection
+    public function getStationsList() : LengthAwarePaginator
     {
-        return Station::with('company')->get();
+        return Station::with('company')->paginate(PaginationConstants::STATIONS_PAGE_SIZE);
     }
 
     public function getStation(int $stationId) : Station
@@ -70,6 +72,6 @@ class StationRepository implements StationRepositoryInterface
 
     public function getStationsByCompanyIds(Collection $companyIds)
     {
-        return Station::whereIn('company_id', $companyIds)->get();
+        return Station::whereIn('company_id', $companyIds)->paginate(PaginationConstants::STATIONS_PAGE_SIZE);
     }
 }

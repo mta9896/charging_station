@@ -4,14 +4,16 @@
 namespace App\Repository\Company;
 
 use App\Company;
+use App\Constants\PaginationConstants;
 use App\DTO\CompanyDTO;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class CompanyRepository implements CompanyRepositoryInterface
 {
-    public function getCompaniesList() : Collection
+    public function getCompaniesList() : LengthAwarePaginator
     {
-        return Company::with('parent')->get();
+        return Company::with('parent')->paginate(PaginationConstants::COMPANIES_PAGE_SIZE);
     }
 
     public function getCompany(int $companyId) : Company

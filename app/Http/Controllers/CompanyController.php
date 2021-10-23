@@ -4,7 +4,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Company;
 use App\DTO\CompanyDTO;
 use App\Http\Requests\CreateCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
