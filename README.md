@@ -44,11 +44,29 @@ If you'd like to have some dummy data in the database, run:
 php artisan db:seed
 ```
 
-To execute tests:
+Now serve the project on your local machine:
 
 ```
-vendor/bin/phpunit
+php artisan serve
 ```
+If you are using docker:
+
+```
+php artisan serve --host=0.0.0.0
+```
+
+## Tests
+
+The test suite consists of feature (API) tests and tests for small units that communicate with the database, too, so they are technically integration tests.
+
+```
+vendor/bin/phpunit tests/Feature
+vendor/bin/phpunit tests/Integration
+```
+
+## Documentation
+
+This project uses a swagger documentation. Try browsing to ```/api/documentation``` to view it.
 
 ## Contributing
 
