@@ -87,7 +87,7 @@ class StationReadTest extends TestCase
             'longitude' => 51.410621,
         ])); // 500 meters
 
-        $station3 = $company->stations()->save(factory(Station::class)->make([
+        $company->stations()->save(factory(Station::class)->make([
             'latitude' => 35.741780,
             'longitude' => 51.402093,
         ])); // 1.01 kilometer
@@ -95,9 +95,9 @@ class StationReadTest extends TestCase
         $station4 = $company->stations()->save(factory(Station::class)->make([
             'latitude' => 35.743531,
             'longitude' => 51.400763,
-        ])); // 800 meters
+        ])); // 850 meters
 
-        $station5 = $company->stations()->save(factory(Station::class)->make([
+        $company->stations()->save(factory(Station::class)->make([
             'latitude' => 35.740493,
             'longitude' => 51.416806,
         ])); // 1.18 kilometers
