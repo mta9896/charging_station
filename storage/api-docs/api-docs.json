@@ -2,8 +2,8 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
-        "title": "Swagger Petstore",
-        "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
+        "title": "API Documentation",
+        "description": "APIs for a vehicle charging station",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "Swagger API Team",
@@ -19,7 +19,7 @@
         "description": "find more info here",
         "url": "https://swagger.io/about"
     },
-    "host": "petstore.swagger.io",
+    "host": "project.local",
     "basePath": "/api",
     "schemes": [
         "http"
