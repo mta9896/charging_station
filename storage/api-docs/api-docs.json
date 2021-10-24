@@ -1,0 +1,90 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel OpenApi Documentation",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "admin@admin.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "localhost:8000/api",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/stations": {
+            "get": {
+                "tags": [
+                    "Stations"
+                ],
+                "summary": "Get list of stations",
+                "description": "Returns list of projects",
+                "operationId": "getStationsList",
+                "responses": {
+                    "200": {
+                        "description": "Get all stations",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Station"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/stations/{stationId}": {
+            "get": {
+                "tags": [
+                    "Stations"
+                ],
+                "summary": "Get a single station",
+                "description": "Returns list of projects",
+                "operationId": "getSingleStation",
+                "responses": {
+                    "200": {
+                        "description": "Get all stations",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Station"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Station": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Projects",
+            "description": "API Endpoints of Projects"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
