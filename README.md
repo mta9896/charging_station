@@ -82,6 +82,24 @@ If you are using docker, run:
 php artisan serve --host=0.0.0.0
 ```
 
+This makes the APIs accessible through HTTP requests to the local domain, on the port 8000 of your local machine:
+
+```
+http://localhost:8000
+```
+
+To change this port, edit the local port value in the docker-compose.yml file:
+
+```
+  php:
+    build:
+      context: ./php
+    volumes:
+      - ../:/app
+    working_dir: /app
+    ports:
+      - {PORT_NUMBER}:8000
+``` 
 ## Tests
 
 The test suite consists of feature (API) tests and tests for small units that communicate with the database, too, so they are technically integration tests.
