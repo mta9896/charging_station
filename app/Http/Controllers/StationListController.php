@@ -4,12 +4,11 @@
 namespace App\Http\Controllers;
 
 
-use App\DTO\LocationDTO;
+use App\DTO\StationFiltersDTO;
 use App\Http\Resources\Station\StationCollection;
 use App\Http\Resources\Station\StationResource;
 use App\Services\Station\ReadStationServiceInterface;
 use App\Services\Station\StationsInCompanyTreeServiceInterface;
-use App\Services\Station\StationsWithinRadiusOfLocationServiceInterface;
 use Illuminate\Http\Request;
 
 class StationListController
@@ -24,21 +23,22 @@ class StationListController
      */
     private $stationsInCompanyTreeService;
 
-    /**
-     * @var StationsWithinRadiusOfLocationServiceInterface
-     */
-    private $stationsWithinRadiusService;
-
-    public function __construct(ReadStationServiceInterface $readStationService, StationsInCompanyTreeServiceInterface $stationsInCompanyTreeService, StationsWithinRadiusOfLocationServiceInterface $stationsWithinRadiusService)
+    public function __construct(ReadStationServiceInterface $readStationService, StationsInCompanyTreeServiceInterface $stationsInCompanyTreeService)
     {
         $this->readStationService = $readStationService;
         $this->stationsInCompanyTreeService = $stationsInCompanyTreeService;
-        $this->stationsWithinRadiusService = $stationsWithinRadiusService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $stations = $this->readStationService->listStations();
+
+        $filterDTO = new StationFiltersDTO(
+            $request->get('latitude'),
+            $request->get('longitude'),
+            $request->get('distance')
+        );
+
+        $stations = $this->readStationService->listStations($filterDTO);
 
         return new StationCollection($stations);
     }
@@ -48,19 +48,6 @@ class StationListController
         $station = $this->readStationService->showSingleStation($stationId);
 
         return new StationResource($station);
-    }
-
-    public function getAllStationsWithinRadius(Request $request)
-    {
-        $locationDTO = new LocationDTO(
-            $request->get('latitude'),
-            $request->get('longitude'),
-            $request->get('distance')
-        );
-
-        $stations = $this->stationsWithinRadiusService->getStationsWithinRadiusOfLocation($locationDTO);
-
-        return new StationCollection($stations);
     }
 
     public function getAllStationsByCompany(int $companyId)

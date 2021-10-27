@@ -4,13 +4,13 @@
 namespace App\Services\Station;
 
 
+use App\DTO\StationFiltersDTO;
 use App\Station;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 interface ReadStationServiceInterface
 {
-    public function listStations() : LengthAwarePaginator;
+    public function listStations(StationFiltersDTO $stationFiltersDTO) : Collection;
 
     public function showSingleStation(int $stationId) : Station;
 }

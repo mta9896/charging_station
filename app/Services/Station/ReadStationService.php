@@ -4,9 +4,9 @@
 namespace App\Services\Station;
 
 
+use App\DTO\StationFiltersDTO;
 use App\Repository\Station\StationRepositoryInterface;
 use App\Station;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class ReadStationService implements ReadStationServiceInterface
@@ -21,9 +21,9 @@ class ReadStationService implements ReadStationServiceInterface
         $this->stationRepository = $stationRepository;
     }
 
-    public function listStations(): LengthAwarePaginator
+    public function listStations(StationFiltersDTO $stationFiltersDTO): Collection
     {
-        return $this->stationRepository->getStationsList();
+        return $this->stationRepository->getStationsList($stationFiltersDTO);
     }
 
     public function showSingleStation(int $stationId): Station

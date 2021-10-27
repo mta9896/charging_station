@@ -29,7 +29,6 @@ class StationServiceProvider extends ServiceProvider
         $this->app->bind(UpdateStationServiceInterface::class, UpdateStationService::class);
         $this->app->bind(DeleteStationServiceInterface::class, DeleteStationService::class);
         $this->app->bind(StationsInCompanyTreeServiceInterface::class, StationsInCompanyTreeService::class);
-        $this->app->bind(StationsWithinRadiusOfLocationServiceInterface::class, StationsWithinRadiusOfLocationService::class);
 
         $this->app->bind(StationRepositoryInterface::class, StationRepository::class);
     }

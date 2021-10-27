@@ -7,17 +7,35 @@ namespace App\Repository\Station;
 use App\Company;
 use App\Constants\CoordinatesConstants;
 use App\Constants\PaginationConstants;
-use App\DTO\LocationDTO;
+use App\DTO\StationFiltersDTO;
 use App\DTO\StationDTO;
 use App\Station;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class StationRepository implements StationRepositoryInterface
 {
-    public function getStationsList() : LengthAwarePaginator
+    public function getStationsList(StationFiltersDTO $locationDTO) : Collection
     {
-        return Station::with('company')->paginate(PaginationConstants::STATIONS_PAGE_SIZE);
+        $queryBuilder = DB::table('stations')
+            ->select();
+
+        if ($locationDTO->getLatitude() && $locationDTO->getLongitude()) {
+            $queryBuilder->addSelect(DB::raw('( ? * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin(radians(latitude)) ) ) AS distance'))
+                ->setBindings([CoordinatesConstants::EARTH_RADIUS_KILOMETERS, $locationDTO->getLatitude(), $locationDTO->getLongitude(), $locationDTO->getLatitude()])
+                ->having('distance', '<=', $locationDTO->getDistance());
+        }
+
+        if ($locationDTO->getDistance()) {
+            $queryBuilder
+                ->orderBy('distance');
+        }
+
+        $result = $queryBuilder
+            ->paginate(PaginationConstants::STATIONS_PAGE_SIZE);
+
+        return Station::hydrate($result->items());
     }
 
     public function getStation(int $stationId) : Station
@@ -48,26 +66,6 @@ class StationRepository implements StationRepositoryInterface
     public function deleteStation(Station $station)
     {
         $station->delete();
-    }
-
-    public function getStationsWithinRadius(LocationDTO $locationDTO)
-    {
-        $query = "
-            SELECT id, name, latitude, longitude, company_id, ( :earthRad * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:latitude) ) * sin(radians(latitude)) ) ) AS distance
-            FROM stations
-            HAVING distance < :distance
-            ORDER BY distance
-        ";
-
-        $result = \DB::select($query,[
-            'earthRad' => CoordinatesConstants::EARTH_RADIUS_KILOMETERS,
-            'lat' => $locationDTO->getLatitude(),
-            'long' => $locationDTO->getLongitude(),
-            'latitude' => $locationDTO->getLatitude(),
-            'distance' => $locationDTO->getDistance(),
-        ]);
-
-        return $result;
     }
 
     public function getStationsByCompanyIds(Collection $companyIds)
