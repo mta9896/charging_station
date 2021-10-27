@@ -4,7 +4,7 @@
 namespace App\DTO;
 
 
-class LocationDTO
+class StationFiltersDTO
 {
     /**
      * @var float
@@ -21,7 +21,7 @@ class LocationDTO
      */
     private $distance;
 
-    public function __construct(float $latitude, float $longitude, float $distance)
+    public function __construct(float $latitude = null, float $longitude = null, float $distance = null)
     {
         $this->latitude = $latitude;
         $this->longitude = $longitude;
