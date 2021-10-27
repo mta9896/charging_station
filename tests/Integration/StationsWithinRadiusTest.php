@@ -5,9 +5,8 @@ namespace Tests\Integration;
 
 
 use App\Company;
-use App\DTO\LocationDTO;
+use App\DTO\StationFiltersDTO;
 use App\Repository\Station\StationRepository;
-use App\Services\Station\StationsWithinRadiusOfLocationService;
 use App\Station;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -46,7 +45,7 @@ class StationsWithinRadiusTest extends TestCase
             'longitude' => 51.400763,
         ])); // 850 meters
 
-        $locationDTO = new LocationDTO(
+        $locationDTO = new StationFiltersDTO(
             35.750500,
             51.405250,
             0.9
@@ -89,7 +88,7 @@ class StationsWithinRadiusTest extends TestCase
             'longitude' => 51.416806,
         ])); // 1.18 kilometers
 
-        $locationDTO = new LocationDTO(
+        $locationDTO = new StationFiltersDTO(
             35.750500,
             51.405250,
             0.8

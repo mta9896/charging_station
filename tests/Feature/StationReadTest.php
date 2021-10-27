@@ -111,7 +111,7 @@ class StationReadTest extends TestCase
         $longitude = 51.405250;
         $distance = 1;
 
-        $response = $this->getJson("/api/stations/list/point?distance=$distance&latitude=$latitude&longitude=$longitude");
+        $response = $this->getJson("/api/stations?distance=$distance&latitude=$latitude&longitude=$longitude");
         $response->assertStatus(200);
 
         $response->assertJson([
