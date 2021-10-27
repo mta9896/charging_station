@@ -21,6 +21,8 @@ git clone git@github.com:mta9896/charging_station.git
 cd charging_station
 ```
 
+### Setting up the docker environment
+
 This project is set up to work with docker. To execute docker-compose commands, first change the directory to the one containing docker-compose.yml file:
 
 ```
@@ -38,6 +40,8 @@ The project is up. Then create the .env file:
 cp .env.example .env
 ```
  
+ ### Running artisan command and dependency installation
+ 
 To execute artisan commands, log into the php shell:
 
 ```
@@ -51,7 +55,9 @@ composer install
 ```
 to install all dependencies.
 
-Database connection information is specified in .env file, in order to work with the mysql container that is created. Change them if necessary. To migrate the database schema, run:
+### Database
+
+Database connection configuration is specified in .env file, in order to work with the mysql container that is created. Change them if necessary. To migrate the database schema, run:
 
 ```
 php artisan migrate
@@ -63,12 +69,14 @@ If you'd like to have some dummy data in the database, run:
 php artisan db:seed
 ```
 
+### Serving the project
+
 Now serve the project on your local machine:
 
 ```
 php artisan serve
 ```
-If you are using docker:
+If you are using docker, run:
 
 ```
 php artisan serve --host=0.0.0.0
