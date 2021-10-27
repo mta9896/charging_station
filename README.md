@@ -13,13 +13,32 @@ Includes CRUD endpoints for station and company models, plus an endpoint to get 
 
 ## Installation
 
-This project is set up to work with docker. In order to start it, run:
+First, clone the repository:
+
+```
+git clone git@github.com:mta9896/charging_station.git
+
+cd charging_station
+```
+
+This project is set up to work with docker. To execute docker-compose commands, first change the directory to the one containing docker-compose.yml file:
+
+```
+cd docker
+```
+To build and start the project, run:
 
 ```
 docker-compose up -d --build
 ```
 
-The project is up. To execute artisan commands, log into the php shell:
+The project is up. Then create the .env file:
+
+```
+cp .env.example .env
+```
+ 
+To execute artisan commands, log into the php shell:
 
 ```
 docker-compose exec php bash
@@ -32,7 +51,7 @@ composer install
 ```
 to install all dependencies.
 
-To migrate the database schema, run:
+Database connection information is specified in .env file, in order to work with the mysql container that is created. Change them if necessary. To migrate the database schema, run:
 
 ```
 php artisan migrate
