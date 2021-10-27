@@ -14,20 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('companies')->group(function () {
+    Route::get('/', 'CompanyController@index');
+    Route::get('/{companyId}', 'CompanyController@show');
+    Route::post('/', 'CompanyController@create');
+    Route::put('/{companyId}', 'CompanyController@update');
+    Route::delete('/{companyId}', 'CompanyController@delete');
+    Route::get('/{companyId}/stations', 'CompanyController@getStationsByCompany');
 });
 
+Route::prefix('stations')->group(function () {
+    Route::get('/', 'StationController@index');
+    Route::get('/{stationId}', 'StationController@show');
+    Route::post('/', 'StationController@create');
+    Route::put('/{stationId}', 'StationController@update');
+    Route::delete('/{stationId}', 'StationController@delete');
+});
 
-Route::get('companies', 'CompanyController@index');
-Route::get('companies/{companyId}', 'CompanyController@show');
-Route::post('companies', 'CompanyController@create');
-Route::put('companies/{companyId}', 'CompanyController@update');
-Route::delete('companies/{companyId}', 'CompanyController@delete');
-Route::get('companies/{companyId}/stations', 'CompanyController@getStationsByCompany');
-
-Route::get('stations', 'StationController@index');
-Route::get('stations/{stationId}', 'StationController@show');
-Route::post('stations', 'StationController@create');
-Route::put('stations/{stationId}', 'StationController@update');
-Route::delete('stations/{stationId}', 'StationController@delete');
