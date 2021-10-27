@@ -11,10 +11,9 @@ class CompanyDeleteTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testItDeletesTheCompanyAndRelatedStations()
+    public function testItDeletesTheCompany()
     {
         $company = factory(Company::class)->create();
-        $station = $company->stations()->save(factory(Station::class)->make());
 
         $response = $this->deleteJson('/api/companies/' . $company->id);
         $response->assertStatus(200);
@@ -22,11 +21,21 @@ class CompanyDeleteTest extends TestCase
         $response = $this->getJson('/api/companies/' . $company->id);
         $response->assertStatus(404);
 
+    }
+
+    public function testItDeletesStationsWhenCompanyIsDeleted()
+    {
+        $company = factory(Company::class)->create();
+        $station = $company->stations()->save(factory(Station::class)->make());
+
+        $response = $this->deleteJson('/api/companies/' . $company->id);
+        $response->assertStatus(200);
+
         $response = $this->getJson('/api/stations/' . $station->id);
         $response->assertStatus(404);
     }
 
-    public function testItDeletesParentCompanyAndChildCompanies()
+    public function testItDeletesChildCompaniesWhenCompanyIsDeleted()
     {
         $parentCompany = factory(Company::class)->create();
         $childCompany = factory(Company::class)->make();
@@ -34,9 +43,6 @@ class CompanyDeleteTest extends TestCase
 
         $response = $this->deleteJson('/api/companies/' . $parentCompany->id);
         $response->assertStatus(200);
-
-        $response = $this->getJson('/api/companies/' . $parentCompany->id);
-        $response->assertStatus(404);
 
         $response = $this->getJson('/api/companies/' . $childCompany->id);
         $response->assertStatus(404);
