@@ -9,10 +9,12 @@ use App\Http\Requests\CreateCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Http\Resources\Company\CompanyCollection;
 use App\Http\Resources\Company\CompanyResource;
+use App\Http\Resources\Station\StationCollection;
 use App\Services\Company\CreateCompanyServiceInterface;
 use App\Services\Company\DeleteCompanyService;
 use App\Services\Company\ReadCompanyServiceInterface;
 use App\Services\Company\UpdateCompanyServiceInterface;
+use App\Services\Station\StationsInCompanyTreeServiceInterface;
 
 class CompanyController
 {
@@ -36,12 +38,19 @@ class CompanyController
      */
     private $deleteCompanyService;
 
-    public function __construct(ReadCompanyServiceInterface $readCompanyService, CreateCompanyServiceInterface $createCompanyService, UpdateCompanyServiceInterface $updateCompanyService, DeleteCompanyService $deleteCompanyService)
+    /**
+     * @var StationsInCompanyTreeServiceInterface
+     */
+    private $stationsInCompanyTreeService;
+
+
+    public function __construct(ReadCompanyServiceInterface $readCompanyService, CreateCompanyServiceInterface $createCompanyService, UpdateCompanyServiceInterface $updateCompanyService, DeleteCompanyService $deleteCompanyService, StationsInCompanyTreeServiceInterface $stationsInCompanyTreeService)
     {
         $this->readCompanyService = $readCompanyService;
         $this->createCompanyService = $createCompanyService;
         $this->updateCompanyService = $updateCompanyService;
         $this->deleteCompanyService = $deleteCompanyService;
+        $this->stationsInCompanyTreeService = $stationsInCompanyTreeService;
     }
 
     public function index()
@@ -84,5 +93,12 @@ class CompanyController
     public function delete(int $companyId)
     {
         $this->deleteCompanyService->deleteCompany($companyId);
+    }
+
+    public function getStationsByCompany(int $companyId)
+    {
+        $stations = $this->stationsInCompanyTreeService->getAllCompanyStations($companyId);
+
+        return new StationCollection($stations);
     }
 }
