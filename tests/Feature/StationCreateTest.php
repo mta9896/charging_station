@@ -14,7 +14,7 @@ class StationCreateTest extends TestCase
 
     public function testItCreatesStation()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
 
         $data = [
             'station' => [

@@ -16,8 +16,8 @@ class StationReadTest extends TestCase
 
     public function testItReturnsSingleStation()
     {
-        $company = factory(Company::class)->create();
-        $station = $company->stations()->save(factory(Station::class)->make());
+        $company = Company::factory()->create();
+        $station = $company->stations()->save(Station::factory()->make());
 
         $response = $this->getJson('/api/stations/' . $station->id);
 
@@ -29,12 +29,12 @@ class StationReadTest extends TestCase
 
     public function testItReturnsAllStationsWithPagination()
     {
-        $companyOne = factory(Company::class)->create();
-        $companyOneStations = $companyOne->stations()->saveMany(factory(Station::class)->times(10)->make());
-        $companyTwo = factory(Company::class)->create();
-        $companyTwoStations = $companyTwo->stations()->saveMany(factory(Station::class)->times(10)->make());
-        $companyThree = factory(Company::class)->create();
-        $companyThreeStations = $companyThree->stations()->saveMany(factory(Station::class)->times(10)->make());
+        $companyOne = Company::factory()->create();
+        $companyOneStations = $companyOne->stations()->saveMany(Station::factory()->times(10)->make());
+        $companyTwo = Company::factory()->create();
+        $companyTwoStations = $companyTwo->stations()->saveMany(Station::factory()->times(10)->make());
+        $companyThree = Company::factory()->create();
+        $companyThreeStations = $companyThree->stations()->saveMany(Station::factory()->times(10)->make());
 
         $allStations = ($companyOneStations->merge($companyTwoStations))->merge($companyThreeStations);
 
@@ -75,29 +75,29 @@ class StationReadTest extends TestCase
 
     public function testItReturnsAllStationsWithinRadiusFromAPoint()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
 
-        $station1 = $company->stations()->save(factory(Station::class)->make([
+        $station1 = $company->stations()->save(Station::factory()->make([
             'latitude' => 35.757234,
             'longitude' => 51.403876,
         ])); // 700 meters
 
-        $station2 = $company->stations()->save(factory(Station::class)->make([
+        $station2 = $company->stations()->save(Station::factory()->make([
             'latitude' => 35.751693,
             'longitude' => 51.410621,
         ])); // 500 meters
 
-        $company->stations()->save(factory(Station::class)->make([
+        $company->stations()->save(Station::factory()->make([
             'latitude' => 35.741780,
             'longitude' => 51.402093,
         ])); // 1.01 kilometer
 
-        $station4 = $company->stations()->save(factory(Station::class)->make([
+        $station4 = $company->stations()->save(Station::factory()->make([
             'latitude' => 35.743531,
             'longitude' => 51.400763,
         ])); // 850 meters
 
-        $company->stations()->save(factory(Station::class)->make([
+        $company->stations()->save(Station::factory()->make([
             'latitude' => 35.740493,
             'longitude' => 51.416806,
         ])); // 1.18 kilometers
@@ -121,8 +121,8 @@ class StationReadTest extends TestCase
 
     public function testItReturnsAllStationsWithNotEnoughFilters()
     {
-        $company = factory(Company::class)->create();
-        $company->stations()->saveMany(factory(Station::class)->times(10)->make());
+        $company = Company::factory()->create();
+        $company->stations()->saveMany(Station::factory()->times(10)->make());
 
         $response = $this->getJson("/api/stations?distance=1&latitude=35.23409");
         $response->assertStatus(200);

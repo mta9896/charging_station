@@ -26,7 +26,7 @@ class CompanyReadTest extends TestCase
 
     public function testItReturnsSingleCompany()
     {
-        $expectedCompany = factory(Company::class)->create([
+        $expectedCompany = Company::factory()->create([
             'id' => 1,
             'name' => 'Test Company'
         ]);
@@ -38,7 +38,7 @@ class CompanyReadTest extends TestCase
 
     public function testItReturnsCompanyList()
     {
-        factory(Company::class)->times(10)->create();
+        Company::factory()->times(10)->create();
 
         $companies = $this->readCompanyService->listCompanies();
 
@@ -47,11 +47,11 @@ class CompanyReadTest extends TestCase
 
     public function testItCreatesChildCompany()
     {
-        $parentCompany = factory(Company::class)->create([
+        $parentCompany = Company::factory()->create([
             'id' => 1,
             'name' => 'Parent Company',
         ]);
-        factory(Company::class)->create([
+        Company::factory()->create([
             'id' => 2,
             'name' => 'Child Company',
             'parent_id' => 1,

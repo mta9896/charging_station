@@ -27,7 +27,7 @@ class CompanyDeleteTest extends TestCase
 
     public function testItDeletesCompanyAndChildStations()
     {
-        $company = factory(Company::class)->create([
+        $company = Company::factory()->create([
             'id' => 1,
             'name' => 'Test Company',
         ]);
@@ -46,11 +46,11 @@ class CompanyDeleteTest extends TestCase
 
     public function testItDeletesCompanyAndChildCompanies()
     {
-        $company = factory(Company::class)->create([
+        $company = Company::factory()->create([
             'id' => 1,
             'name' => 'Test Company',
         ]);
-        $childCompany = factory(Company::class)->make();
+        $childCompany = Company::factory()->make();
         $company->children()->save($childCompany);
 
         $this->deleteCompanyService->deleteCompany($company->id);

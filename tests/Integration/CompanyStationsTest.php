@@ -26,11 +26,11 @@ class CompanyStationsTest extends TestCase
 
     public function testItReturnsAllStationsInTreeForParentCompany()
     {
-        $parentCompany = factory(Company::class)->create();
-        $childCompanyLevel1 = factory(Company::class)->create([
+        $parentCompany = Company::factory()->create();
+        $childCompanyLevel1 = Company::factory()->create([
             'parent_id' => $parentCompany->id,
         ]);
-        $childCompanyLevel2 = factory(Company::class)->create([
+        $childCompanyLevel2 = Company::factory()->create([
             'parent_id' => $childCompanyLevel1->id,
         ]);
 
@@ -51,11 +51,11 @@ class CompanyStationsTest extends TestCase
 
     public function testItReturnsAllStationsInTreeForChildCompany()
     {
-        $parentCompany = factory(Company::class)->create();
-        $childCompanyLevel1 = factory(Company::class)->create([
+        $parentCompany = Company::factory()->create();
+        $childCompanyLevel1 = Company::factory()->create([
             'parent_id' => $parentCompany->id,
         ]);
-        $childCompanyLevel2 = factory(Company::class)->create([
+        $childCompanyLevel2 = Company::factory()->create([
             'parent_id' => $childCompanyLevel1->id,
         ]);
 
@@ -76,11 +76,11 @@ class CompanyStationsTest extends TestCase
 
     public function testItDoesNotReturnStationsNotInTree()
     {
-        $parentCompany = factory(Company::class)->create();
-        $childCompaniesLevel1 = factory(Company::class)->times(2)->create([
+        $parentCompany = Company::factory()->create();
+        $childCompaniesLevel1 = Company::factory()->times(2)->create([
             'parent_id' => $parentCompany->id,
         ]);
-        $childCompanyLevel2 = factory(Company::class)->create([
+        $childCompanyLevel2 = Company::factory()->create([
             'parent_id' => ($childCompaniesLevel1[0])->id,
         ]);
 

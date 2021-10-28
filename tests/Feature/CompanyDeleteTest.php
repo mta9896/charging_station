@@ -13,7 +13,7 @@ class CompanyDeleteTest extends TestCase
 
     public function testItDeletesTheCompany()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
 
         $response = $this->deleteJson('/api/companies/' . $company->id);
         $response->assertStatus(200);
@@ -25,8 +25,8 @@ class CompanyDeleteTest extends TestCase
 
     public function testItDeletesStationsWhenCompanyIsDeleted()
     {
-        $company = factory(Company::class)->create();
-        $station = $company->stations()->save(factory(Station::class)->make());
+        $company = Company::factory()->create();
+        $station = $company->stations()->save(Station::factory()->make());
 
         $response = $this->deleteJson('/api/companies/' . $company->id);
         $response->assertStatus(200);
@@ -37,8 +37,8 @@ class CompanyDeleteTest extends TestCase
 
     public function testItDeletesChildCompaniesWhenCompanyIsDeleted()
     {
-        $parentCompany = factory(Company::class)->create();
-        $childCompany = factory(Company::class)->make();
+        $parentCompany = Company::factory()->create();
+        $childCompany = Company::factory()->make();
         $childCompany = $parentCompany->children()->save($childCompany);
 
         $response = $this->deleteJson('/api/companies/' . $parentCompany->id);

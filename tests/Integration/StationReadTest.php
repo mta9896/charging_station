@@ -29,7 +29,7 @@ class StationReadTest extends TestCase
 
     public function testItReturnsSingleStation()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
         $expectedStation = factory(Station::class)->create([
             'company_id' => $company->id,
         ]);
@@ -41,7 +41,7 @@ class StationReadTest extends TestCase
 
     public function testItReturnsStationsList()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
 
         factory(Station::class)->times(10)->create([
             'company_id' => $company,
@@ -55,7 +55,7 @@ class StationReadTest extends TestCase
 
     public function testItReturnsAllStationsWithinRadius()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
 
         $station1 = $company->stations()->save(factory(Station::class)->make([
             'id' => 1,
@@ -91,7 +91,7 @@ class StationReadTest extends TestCase
 
     public function testItDoesNotReturnStationsNotInRadius()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
 
         $company->stations()->save(factory(Station::class)->make([
             'latitude' => 35.757234,

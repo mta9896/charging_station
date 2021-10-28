@@ -31,7 +31,7 @@ class CompanyCreateTest extends TestCase
 
     public function testItCreatesChildCompany()
     {
-        $parentCompany = factory(Company::class)->create();
+        $parentCompany = Company::factory()->create();
         $data = [
             'company' => [
                 'name' => 'Test Child Company',

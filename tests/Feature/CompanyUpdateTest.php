@@ -14,7 +14,7 @@ class CompanyUpdateTest extends TestCase
 
     public function testItUpdatesTheCompany()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
 
         $data = [
             'company' => [
@@ -45,7 +45,7 @@ class CompanyUpdateTest extends TestCase
 
     public function testItThrowsErrorWhenPayloadIsNotValid()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
 
         $data = [
             'company' => [

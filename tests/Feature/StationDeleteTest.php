@@ -15,8 +15,8 @@ class StationDeleteTest extends TestCase
 
     public function testItDeletesTheStation()
     {
-        $company = factory(Company::class)->create();
-        $station = $company->stations()->save(factory(Station::class)->make());
+        $company = Company::factory()->create();
+        $station = $company->stations()->save(Station::factory()->make());
 
         $response = $this->deleteJson('/api/stations/' . $station->id);
         $response->assertStatus(200);

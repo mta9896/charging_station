@@ -15,8 +15,8 @@ class StationUpdateTest extends TestCase
 
     public function testItUpdatesTheStation()
     {
-        $company = factory(Company::class)->create();
-        $station = factory(Station::class)->create([
+        $company = Company::factory()->create();
+        $station = Station::factory()->create([
             'company_id' => $company,
         ]);
 

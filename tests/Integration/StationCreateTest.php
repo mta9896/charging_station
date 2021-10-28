@@ -28,7 +28,7 @@ class StationCreateTest extends TestCase
 
     public function testItCreatesStation()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
 
         $stationDTO = new StationDTO(
             'Station Name',

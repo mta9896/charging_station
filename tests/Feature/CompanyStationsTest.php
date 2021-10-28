@@ -16,16 +16,16 @@ class CompanyStationsTest extends TestCase
 
     public function testItReturnsAllStationInTreeForParentCompany()
     {
-        $parentCompany = factory(Company::class)->create();
-        $stations = $parentCompany->stations()->saveMany(factory(Station::class)->times(2)->make());
+        $parentCompany = Company::factory()->create();
+        $stations = $parentCompany->stations()->saveMany(Station::factory()->times(2)->make());
 
-        $childrenCompanies = $parentCompany->children()->saveMany(factory(Company::class)->times(2)->make());
+        $childrenCompanies = $parentCompany->children()->saveMany(Company::factory()->times(2)->make());
 
-        ($childrenCompanies[0])->children()->saveMany(factory(Company::class)->times(3)->make());
-        $childStations1 = ($childrenCompanies[0])->stations()->saveMany(factory(Station::class)->times(3)->make());
+        ($childrenCompanies[0])->children()->saveMany(Company::factory()->times(3)->make());
+        $childStations1 = ($childrenCompanies[0])->stations()->saveMany(Station::factory()->times(3)->make());
 
-        ($childrenCompanies[1])->children()->saveMany(factory(Company::class)->times(2)->make());
-        $childStations2 = ($childrenCompanies[1])->stations()->saveMany(factory(Station::class)->times(3)->make());
+        ($childrenCompanies[1])->children()->saveMany(Company::factory()->times(2)->make());
+        $childStations2 = ($childrenCompanies[1])->stations()->saveMany(Station::factory()->times(3)->make());
 
         $expectedStations = ($stations->merge($childStations1))->merge($childStations2);
 
@@ -38,19 +38,19 @@ class CompanyStationsTest extends TestCase
 
     public function testItReturnsAllStationsForNonParentCompany()
     {
-        $parentCompany = factory(Company::class)->create();
-        $parentCompany->stations()->saveMany(factory(Station::class)->times(2)->make());
+        $parentCompany = Company::factory()->create();
+        $parentCompany->stations()->saveMany(Station::factory()->times(2)->make());
 
-        $childCompaniesLevel1 = $parentCompany->children()->saveMany(factory(Company::class)->times(2)->make());
+        $childCompaniesLevel1 = $parentCompany->children()->saveMany(Company::factory()->times(2)->make());
 
-        ($childCompaniesLevel1[0])->children()->saveMany(factory(Company::class)->times(3)->make());
-        $childStations1 = ($childCompaniesLevel1[0])->stations()->saveMany(factory(Station::class)->times(3)->make());
+        ($childCompaniesLevel1[0])->children()->saveMany(Company::factory()->times(3)->make());
+        $childStations1 = ($childCompaniesLevel1[0])->stations()->saveMany(Station::factory()->times(3)->make());
 
-        ($childCompaniesLevel1[1])->children()->saveMany(factory(Company::class)->times(2)->make());
-        ($childCompaniesLevel1[1])->stations()->saveMany(factory(Station::class)->times(3)->make());
+        ($childCompaniesLevel1[1])->children()->saveMany(Company::factory()->times(2)->make());
+        ($childCompaniesLevel1[1])->stations()->saveMany(Station::factory()->times(3)->make());
 
-        $childCompaniesLevel2 = ($childCompaniesLevel1[0])->children()->saveMany(factory(Company::class)->times(2)->make());
-        $childStations3 = ($childCompaniesLevel2[0])->stations()->saveMany(factory(Station::class)->times(4)->make());
+        $childCompaniesLevel2 = ($childCompaniesLevel1[0])->children()->saveMany(Company::factory()->times(2)->make());
+        $childStations3 = ($childCompaniesLevel2[0])->stations()->saveMany(Station::factory()->times(4)->make());
 
         $expectedStations = $childStations1->merge($childStations3);
 

@@ -29,7 +29,7 @@ class StationUpdateTest extends TestCase
 
     public function testItUpdatesStation()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
         $station = factory(Station::class)->create([
             'name' => 'Test Station',
             'latitude' => 11.1111,
@@ -57,7 +57,7 @@ class StationUpdateTest extends TestCase
 
     public function testItThrowsExceptionWhenStationDoesNotExist()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
 
         $stationDTO = new StationDTO(
             'New Station Name',

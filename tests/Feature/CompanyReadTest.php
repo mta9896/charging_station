@@ -15,7 +15,7 @@ class CompanyReadTest extends TestCase
 
     public function testItReturnsSingleCompanyById()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
 
         $response = $this->getJson('/api/companies/' . $company->id);
         $response->assertStatus(200);
@@ -27,7 +27,7 @@ class CompanyReadTest extends TestCase
 
     public function testItReturnsCompaniesListWithPagination()
     {
-        $companies = factory(Company::class)->times(20)->create();
+        $companies = Company::factory()->times(20)->create();
 
         $response = $this->getJson('/api/companies');
 
@@ -46,8 +46,8 @@ class CompanyReadTest extends TestCase
 
     public function testItReturnsCompanyWithParentCorrectly()
     {
-        $parentCompany = factory(Company::class)->create();
-        $childrenCompanies = $parentCompany->children()->saveMany(factory(Company::class)->times(5)->make());
+        $parentCompany = Company::factory()->create();
+        $childrenCompanies = $parentCompany->children()->saveMany(Company::factory()->times(5)->make());
 
         $companies = new Collection();
         $companies->push($parentCompany);

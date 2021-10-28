@@ -25,7 +25,7 @@ class StationDeleteTest extends TestCase
 
     public function testItDeletesStation()
     {
-        $company = factory(Company::class)->create();
+        $company = Company::factory()->create();
         $station = factory(Station::class)->create([
             'company_id' => $company->id,
         ]);

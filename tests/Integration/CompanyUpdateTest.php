@@ -28,7 +28,7 @@ class CompanyUpdateTest extends TestCase
 
     public function testItUpdatesTheCompany()
     {
-        $company = factory(Company::class)->create([
+        $company = Company::factory()->create([
             'id' => 1,
             'name' => 'Test Company'
         ]);
