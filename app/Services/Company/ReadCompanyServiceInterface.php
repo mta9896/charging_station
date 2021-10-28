@@ -5,11 +5,11 @@ namespace App\Services\Company;
 
 
 use App\Company;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 interface ReadCompanyServiceInterface
 {
-    public function listCompanies() : LengthAwarePaginator;
+    public function listCompanies() : Collection;
 
     public function showSingleCompany(int $companyId) : Company;
 }

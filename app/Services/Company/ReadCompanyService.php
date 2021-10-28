@@ -6,7 +6,7 @@ namespace App\Services\Company;
 
 use App\Company;
 use App\Repository\Company\CompanyRepositoryInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class ReadCompanyService implements ReadCompanyServiceInterface
 {
@@ -20,7 +20,7 @@ class ReadCompanyService implements ReadCompanyServiceInterface
         $this->companyRepository = $companyRepository;
     }
 
-    public function listCompanies() : LengthAwarePaginator
+    public function listCompanies() : Collection
     {
         return $this->companyRepository->getCompaniesList();
     }
