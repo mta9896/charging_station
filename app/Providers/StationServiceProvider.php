@@ -12,6 +12,9 @@ use App\Services\Station\DeleteStationService;
 use App\Services\Station\DeleteStationServiceInterface;
 use App\Services\Station\ReadStationService;
 use App\Services\Station\ReadStationServiceInterface;
+use App\Services\Station\StationFetch\DefaultStationFetch;
+use App\Services\Station\StationFetch\StationFetchStrategy;
+use App\Services\Station\StationFetch\StationsWithinRadiusFetch;
 use App\Services\Station\StationsInCompanyTreeService;
 use App\Services\Station\StationsInCompanyTreeServiceInterface;
 use App\Services\Station\StationsWithinRadiusOfLocationService;
@@ -31,5 +34,7 @@ class StationServiceProvider extends ServiceProvider
         $this->app->bind(StationsInCompanyTreeServiceInterface::class, StationsInCompanyTreeService::class);
 
         $this->app->bind(StationRepositoryInterface::class, StationRepository::class);
+
+        $this->app->tag([StationsWithinRadiusFetch::class], 'stationFetch');
     }
 }

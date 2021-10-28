@@ -13,7 +13,9 @@ use Illuminate\Support\Collection;
 
 interface StationRepositoryInterface
 {
-    public function getStationsList(StationFiltersDTO $locationDTO) : Collection;
+    public function getStationsList() : Collection;
+
+    public function getStationsWithinRadiusFromPoint(StationFiltersDTO $stationFiltersDTO) : Collection;
 
     public function getStation(int $stationId) : Station;
 

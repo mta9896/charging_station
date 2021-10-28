@@ -31,7 +31,7 @@ class StationFiltersDTO
     /**
      * @return float
      */
-    public function getLatitude()
+    public function getLatitude() : ?float
     {
         return $this->latitude;
     }
@@ -39,7 +39,7 @@ class StationFiltersDTO
     /**
      * @return float
      */
-    public function getLongitude()
+    public function getLongitude() : ?float
     {
         return $this->longitude;
     }
@@ -47,7 +47,7 @@ class StationFiltersDTO
     /**
      * @return float
      */
-    public function getDistance()
+    public function getDistance() : ?float
     {
         return $this->distance;
     }
