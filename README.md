@@ -63,12 +63,6 @@ Database connection configuration is specified in .env file, in order to work wi
 php artisan migrate
 ```
 
-If you'd like to have some dummy data in the database, run:
-
-```
-php artisan db:seed
-```
-
 ### Serving the project
 
 Now serve the project on your local machine:
