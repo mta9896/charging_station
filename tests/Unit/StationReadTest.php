@@ -6,7 +6,7 @@ namespace Tests\Unit;
 
 use App\DTO\StationFiltersDTO;
 use App\Repository\Station\StationRepository;
-use App\Repository\Station\StationRepositoryInterface;
+use App\Services\Station\ReadStationService;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -14,47 +14,61 @@ class StationReadTest extends TestCase
 {
     public function testItReturnsAllStationsWhenNoFilterIsGiven()
     {
-        $this->instance(StationRepositoryInterface::class, \Mockery::mock(StationRepository::class, function (MockInterface $mock) {
+        $repository = $this->mock(StationRepository::class, function (MockInterface $mock) {
             $mock->shouldReceive('getStationsList')
                 ->once();
-        }));
-
-        $readService = $this->app->make('App\Services\Station\ReadStationService');
+        });
 
         $stationFiltersDTO = new StationFiltersDTO();
-        $readService->listStations($stationFiltersDTO);
+
+        $readStationService = new ReadStationService($repository);
+        $readStationService->listStations($stationFiltersDTO);
     }
 
     public function testItReturnsStationsBasedOnRadiusWhenFiltersAreGiven()
     {
-        $this->instance(StationRepositoryInterface::class, \Mockery::mock(StationRepository::class, function (MockInterface $mock) {
+        $repository = $this->mock(StationRepository::class, function (MockInterface $mock) {
             $mock->shouldReceive('getStationsWithinRadiusFromPoint')
                 ->once();
-        }));
-
-        $readService = $this->app->make('App\Services\Station\ReadStationService');
+        });
 
         $stationFiltersDTO = new StationFiltersDTO(
             35.750500,
             51.405250,
             0.8
         );
-        $readService->listStations($stationFiltersDTO);
+
+        $readStationService = new ReadStationService($repository);
+        $readStationService->listStations($stationFiltersDTO);
     }
 
     public function testItReturnsAllStationsByDefaultWhenFiltersAreNotComplete()
     {
-        $this->instance(StationRepositoryInterface::class, \Mockery::mock(StationRepository::class, function (MockInterface $mock) {
+        $repository = $this->mock(StationRepository::class, function (MockInterface $mock) {
             $mock->shouldReceive('getStationsList')
                 ->once();
-        }));
-
-        $readService = $this->app->make('App\Services\Station\ReadStationService');
+        });
 
         $stationFiltersDTO = new StationFiltersDTO(
             35.750500,
             51.405250
         );
-        $readService->listStations($stationFiltersDTO);
+
+        $readStationService = new ReadStationService($repository);
+        $readStationService->listStations($stationFiltersDTO);
+    }
+
+    public function testItReturnsSingleStation()
+    {
+        $stationId = 1;
+
+        $repository = $this->mock(StationRepository::class, function (MockInterface $mock) use ($stationId) {
+            $mock->shouldReceive('getStation')
+                ->with($stationId)
+                ->once();
+        });
+
+        $readStationService = new ReadStationService($repository);
+        $readStationService->showSingleStation($stationId);
     }
 }
