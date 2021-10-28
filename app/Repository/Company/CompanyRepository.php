@@ -49,8 +49,10 @@ class CompanyRepository implements CompanyRepositoryInterface
         $company->delete();
     }
 
-    public function getCompanyDescendantsAndSelf(Company $company): Collection
+    public function getCompanyDescendantsAndSelfIds(Company $company): Collection
     {
-        return Company::descendantsAndSelf($company->id);
+        $companies = Company::descendantsAndSelf($company->id);
+
+        return $companies->pluck('id');
     }
 }

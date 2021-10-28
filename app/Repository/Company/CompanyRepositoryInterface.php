@@ -22,5 +22,5 @@ interface CompanyRepositoryInterface
 
     public function deleteCompany(Company $company);
 
-    public function getCompanyDescendantsAndSelf(Company $company) : Collection;
+    public function getCompanyDescendantsAndSelfIds(Company $company) : Collection;
 }

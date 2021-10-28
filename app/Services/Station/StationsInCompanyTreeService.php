@@ -29,10 +29,9 @@ class StationsInCompanyTreeService implements StationsInCompanyTreeServiceInterf
     public function getAllCompanyStations(int $companyId) : Collection
     {
         $company = $this->companyRepository->getCompany($companyId);
-        $companyDescendants = $this->companyRepository->getCompanyDescendantsAndSelf($company);
-        $companyIds = $companyDescendants->pluck('id');
+        $companyDescendantsIds = $this->companyRepository->getCompanyDescendantsAndSelfIds($company);
 
-        $stations = $this->stationRepository->getStationsByCompanyIds($companyIds);
+        $stations = $this->stationRepository->getStationsByCompanyIds($companyDescendantsIds);
 
         return $stations;
     }
