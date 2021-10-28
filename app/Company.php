@@ -2,12 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
 
 class Company extends Model
 {
     use NodeTrait;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.

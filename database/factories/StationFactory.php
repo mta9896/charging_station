@@ -1,14 +1,22 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Station;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Station::class, function (Faker $faker) {
-    return [
-        'name' => $faker->company,
-        'latitude' => $faker->latitude,
-        'longitude' => $faker->longitude,
-    ];
-});
+class StationFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->company,
+            'latitude' => $this->faker->latitude,
+            'longitude' => $this->faker->longitude,
+        ];
+    }
+}
