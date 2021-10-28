@@ -6,9 +6,8 @@ namespace App\Services\Station;
 
 use App\DTO\StationFiltersDTO;
 use App\Repository\Station\StationRepositoryInterface;
-use App\Services\Station\StationFetch\StationFetchStrategy;
+use App\Services\Station\StationFetch\StationFetchStrategyInterface;
 use App\Station;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class ReadStationService implements ReadStationServiceInterface
@@ -25,7 +24,7 @@ class ReadStationService implements ReadStationServiceInterface
 
     public function listStations(StationFiltersDTO $stationFiltersDTO): Collection
     {
-        /** @var StationFetchStrategy $stationStrategy */
+        /** @var StationFetchStrategyInterface $stationStrategy */
         foreach (app()->tagged('stationFetch') as $stationStrategy) {
             if ($stationStrategy->shouldBeApplied($stationFiltersDTO)) {
                 return $stationStrategy->fetchCollection($stationFiltersDTO);

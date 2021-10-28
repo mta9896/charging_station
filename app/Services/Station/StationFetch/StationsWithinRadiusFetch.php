@@ -8,7 +8,7 @@ use App\DTO\StationFiltersDTO;
 use App\Repository\Station\StationRepositoryInterface;
 use Illuminate\Support\Collection;
 
-class StationsWithinRadiusFetch implements StationFetchStrategy
+class StationsWithinRadiusFetch implements StationFetchStrategyInterface
 {
     /**
      * @var StationRepositoryInterface

@@ -119,6 +119,17 @@ class StationReadTest extends TestCase
         ]);
     }
 
+    public function testItReturnsAllStationsWithNotEnoughFilters()
+    {
+        $company = factory(Company::class)->create();
+        $company->stations()->saveMany(factory(Station::class)->times(10)->make());
+
+        $response = $this->getJson("/api/stations?distance=1&latitude=35.23409");
+        $response->assertStatus(200);
+        $content = json_decode($response->content());
+        $this->assertEquals(10, count($content->data));
+    }
+
     private function serializeStationsArray(Collection $stations)
     {
         $result = [];

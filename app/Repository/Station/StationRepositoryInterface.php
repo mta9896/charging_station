@@ -8,7 +8,6 @@ use App\Company;
 use App\DTO\StationFiltersDTO;
 use App\DTO\StationDTO;
 use App\Station;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 interface StationRepositoryInterface

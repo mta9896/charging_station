@@ -13,7 +13,7 @@ use App\Services\Station\DeleteStationServiceInterface;
 use App\Services\Station\ReadStationService;
 use App\Services\Station\ReadStationServiceInterface;
 use App\Services\Station\StationFetch\DefaultStationFetch;
-use App\Services\Station\StationFetch\StationFetchStrategy;
+use App\Services\Station\StationFetch\StationFetchStrategyInterface;
 use App\Services\Station\StationFetch\StationsWithinRadiusFetch;
 use App\Services\Station\StationsInCompanyTreeService;
 use App\Services\Station\StationsInCompanyTreeServiceInterface;

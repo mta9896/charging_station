@@ -7,7 +7,7 @@ namespace App\Services\Station\StationFetch;
 use App\DTO\StationFiltersDTO;
 use Illuminate\Support\Collection;
 
-interface StationFetchStrategy
+interface StationFetchStrategyInterface
 {
     public function shouldBeApplied(StationFiltersDTO $stationFiltersDTO) : bool;
 
