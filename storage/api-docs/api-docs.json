@@ -174,7 +174,7 @@
         },
         "/stations": {
             "get": {
-                "description": "Get paginated stations",
+                "description": "Get a paginated list of stations. If all three of distance, latitude and longitude parameters are given, a list of all stations that are located within the radius = distance from latitude and longitude is returned.",
                 "operationId": "listStations",
                 "produces": [
                     "application/json"
@@ -186,6 +186,30 @@
                         "description": "page number",
                         "required": false,
                         "type": "int"
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "query",
+                        "description": "latitude of the center location",
+                        "required": false,
+                        "type": "number",
+                        "format": "float"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "query",
+                        "description": "longitude of the center location",
+                        "required": false,
+                        "type": "number",
+                        "format": "float"
+                    },
+                    {
+                        "name": "distance",
+                        "in": "query",
+                        "description": "radius from the center, in kilometers",
+                        "required": false,
+                        "type": "number",
+                        "format": "float"
                     }
                 ],
                 "responses": {
@@ -346,46 +370,6 @@
                     },
                     "404": {
                         "description": "Company not found"
-                    }
-                }
-            }
-        },
-        "stations/list/point": {
-            "get": {
-                "description": "Returns a list of all the stations within the given radius from the given coordinates, sorted by distance.",
-                "operationId": "getStationsByDistance",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "distance",
-                        "in": "query",
-                        "description": "radius",
-                        "required": false,
-                        "type": "int"
-                    },
-                    {
-                        "name": "latitude",
-                        "in": "query",
-                        "description": "latitude of the center location",
-                        "required": false,
-                        "type": "int"
-                    },
-                    {
-                        "name": "longitude",
-                        "in": "query",
-                        "description": "longitude of the center location",
-                        "required": false,
-                        "type": "int"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Stations within the radius around location",
-                        "schema": {
-                            "$ref": "#/definitions/Station"
-                        }
                     }
                 }
             }
