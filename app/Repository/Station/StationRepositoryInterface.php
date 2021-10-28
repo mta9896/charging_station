@@ -24,5 +24,5 @@ interface StationRepositoryInterface
 
     public function deleteStation(Station $station);
 
-    public function getStationsByCompanyIds(Collection $companyIds);
+    public function getStationsByCompanyIds(Collection $companyIds) : Collection;
 }

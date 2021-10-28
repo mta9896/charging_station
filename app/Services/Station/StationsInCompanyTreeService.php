@@ -6,6 +6,7 @@ namespace App\Services\Station;
 
 use App\Repository\Company\CompanyRepositoryInterface;
 use App\Repository\Station\StationRepositoryInterface;
+use Illuminate\Support\Collection;
 
 class StationsInCompanyTreeService implements StationsInCompanyTreeServiceInterface
 {
@@ -25,7 +26,7 @@ class StationsInCompanyTreeService implements StationsInCompanyTreeServiceInterf
         $this->companyRepository = $companyRepository;
     }
 
-    public function getAllCompanyStations(int $companyId)
+    public function getAllCompanyStations(int $companyId) : Collection
     {
         $company = $this->companyRepository->getCompany($companyId);
         $companyDescendants = $this->companyRepository->getCompanyDescendantsAndSelf($company);

@@ -70,6 +70,9 @@ class StationRepository implements StationRepositoryInterface
 
     public function getStationsByCompanyIds(Collection $companyIds) : Collection
     {
-        return Station::whereIn('company_id', $companyIds)->paginate(PaginationConstants::STATIONS_PAGE_SIZE);
+        $stations = Station::whereIn('company_id', $companyIds)
+            ->paginate(PaginationConstants::STATIONS_PAGE_SIZE);
+
+        return new Collection($stations->items());
     }
 }
