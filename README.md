@@ -103,6 +103,12 @@ vendor/bin/phpunit tests/Feature
 vendor/bin/phpunit tests/Integration
 ```
 
+To run unit tests, execute the following command
+
+```
+vendor/bin/phpunit tests/Unit
+```
+
 ## Documentation
 
 This project uses a swagger documentation. Try browsing to ```/api/documentation``` to view it.
