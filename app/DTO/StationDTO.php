@@ -6,38 +6,14 @@ namespace App\DTO;
 
 class StationDTO
 {
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var float
-     */
-    private $latitude;
-
-    /**
-     * @var float
-     */
-    private $longitude;
-
-    /**
-     * @var int
-     */
-    private $companyId;
-
-    public function __construct(string $name = null, float $latitude = null, float $longitude = null, int $companyId = null)
+    public function __construct(private ?string $name = null, private ?float $latitude = null, private ?float $longitude = null, private ?int $companyId = null)
     {
-        $this->name = $name;
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
-        $this->companyId = $companyId;
     }
 
     /**
      * @return string
      */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->name;
     }
@@ -45,7 +21,7 @@ class StationDTO
     /**
      * @return float
      */
-    public function getLatitude() : float
+    public function getLatitude() : ?float
     {
         return $this->latitude;
     }
@@ -53,7 +29,7 @@ class StationDTO
     /**
      * @return float
      */
-    public function getLongitude() : float
+    public function getLongitude() : ?float
     {
         return $this->longitude;
     }
@@ -61,7 +37,7 @@ class StationDTO
     /**
      * @return int
      */
-    public function getCompanyId() : int
+    public function getCompanyId() : ?int
     {
         return $this->companyId;
     }

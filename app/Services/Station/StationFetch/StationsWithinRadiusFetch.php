@@ -10,14 +10,8 @@ use Illuminate\Support\Collection;
 
 class StationsWithinRadiusFetch implements StationFetchStrategyInterface
 {
-    /**
-     * @var StationRepositoryInterface
-     */
-    private $stationRepository;
-
-    public function __construct(StationRepositoryInterface $stationRepository)
+    public function __construct(private StationRepositoryInterface $stationRepository)
     {
-        $this->stationRepository = $stationRepository;
     }
 
     public function shouldBeApplied(StationFiltersDTO $stationFiltersDTO): bool

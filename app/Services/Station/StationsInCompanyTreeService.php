@@ -10,20 +10,10 @@ use Illuminate\Support\Collection;
 
 class StationsInCompanyTreeService implements StationsInCompanyTreeServiceInterface
 {
-    /**
-     * @var StationRepositoryInterface
-     */
-    private $stationRepository;
-
-    /**
-     * @var CompanyRepositoryInterface
-     */
-    private $companyRepository;
-
-    public function __construct(StationRepositoryInterface $stationRepository, CompanyRepositoryInterface $companyRepository)
+    public function __construct(
+        private StationRepositoryInterface $stationRepository,
+        private CompanyRepositoryInterface $companyRepository)
     {
-        $this->stationRepository = $stationRepository;
-        $this->companyRepository = $companyRepository;
     }
 
     public function getAllCompanyStations(int $companyId) : Collection

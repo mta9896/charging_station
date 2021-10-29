@@ -6,26 +6,8 @@ namespace App\DTO;
 
 class StationFiltersDTO
 {
-    /**
-     * @var float
-     */
-    private $latitude;
-
-    /**
-     * @var float
-     */
-    private $longitude;
-
-    /**
-     * @var float
-     */
-    private $distance;
-
-    public function __construct(float $latitude = null, float $longitude = null, float $distance = null)
+    public function __construct(private ?float $latitude = null, private ?float $longitude = null, private ?float $distance = null)
     {
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
-        $this->distance = $distance;
     }
 
     /**

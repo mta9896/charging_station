@@ -10,14 +10,8 @@ use App\Repository\Company\CompanyRepositoryInterface;
 
 class CreateCompanyService implements CreateCompanyServiceInterface
 {
-    /**
-     * @var CompanyRepositoryInterface
-     */
-    private $companyRepository;
-
-    public function __construct(CompanyRepositoryInterface $companyRepository)
+    public function __construct(private CompanyRepositoryInterface $companyRepository)
     {
-        $this->companyRepository = $companyRepository;
     }
 
     public function createCompany(CompanyDTO $companyDTO) : Company

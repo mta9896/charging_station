@@ -8,14 +8,8 @@ use App\Repository\Company\CompanyRepositoryInterface;
 
 class DeleteCompanyService implements DeleteCompanyServiceInterface
 {
-    /**
-     * @var CompanyRepositoryInterface
-     */
-    private $companyRepository;
-
-    public function __construct(CompanyRepositoryInterface $companyRepository)
+    public function __construct(private CompanyRepositoryInterface $companyRepository)
     {
-        $this->companyRepository = $companyRepository;
     }
 
     public function deleteCompany(int $companyId) : void

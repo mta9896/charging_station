@@ -9,14 +9,8 @@ use App\Repository\Station\StationRepositoryInterface;
 
 class DeleteStationService implements DeleteStationServiceInterface
 {
-    /**
-     * @var StationRepositoryInterface
-     */
-    private $stationRepository;
-
-    public function __construct(StationRepositoryInterface $stationRepository)
+    public function __construct(private StationRepositoryInterface $stationRepository)
     {
-        $this->stationRepository = $stationRepository;
     }
 
     public function deleteStation(int $stationId) : void

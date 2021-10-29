@@ -19,32 +19,12 @@ use Illuminate\Http\Response;
 
 class StationController
 {
-    /**
-     * @var ReadStationServiceInterface
-     */
-    private $readStationService;
-
-    /**
-     * @var CreateStationServiceInterface
-     */
-    private $createStationService;
-
-    /**
-     * @var UpdateStationServiceInterface
-     */
-    private $updateStationService;
-
-    /**
-     * @var DeleteStationServiceInterface
-     */
-    private $deleteStationService;
-
-    public function __construct(ReadStationServiceInterface $readStationService, CreateStationServiceInterface $createStationService, UpdateStationServiceInterface $updateStationService, DeleteStationServiceInterface $deleteStationService)
+    public function __construct(
+        private ReadStationServiceInterface $readStationService,
+        private CreateStationServiceInterface $createStationService,
+        private UpdateStationServiceInterface $updateStationService,
+        private DeleteStationServiceInterface $deleteStationService)
     {
-        $this->readStationService = $readStationService;
-        $this->createStationService = $createStationService;
-        $this->updateStationService = $updateStationService;
-        $this->deleteStationService = $deleteStationService;
     }
 
     public function index(Request $request) : StationCollection

@@ -19,39 +19,13 @@ use Illuminate\Http\Response;
 
 class CompanyController
 {
-    /**
-     * @var ReadCompanyServiceInterface
-     */
-    private $readCompanyService;
-
-    /**
-     * @var CreateCompanyServiceInterface
-     */
-    private $createCompanyService;
-
-    /**
-     * @var UpdateCompanyServiceInterface
-     */
-    private $updateCompanyService;
-
-    /**
-     * @var DeleteCompanyService
-     */
-    private $deleteCompanyService;
-
-    /**
-     * @var StationsInCompanyTreeServiceInterface
-     */
-    private $stationsInCompanyTreeService;
-
-
-    public function __construct(ReadCompanyServiceInterface $readCompanyService, CreateCompanyServiceInterface $createCompanyService, UpdateCompanyServiceInterface $updateCompanyService, DeleteCompanyService $deleteCompanyService, StationsInCompanyTreeServiceInterface $stationsInCompanyTreeService)
+    public function __construct(
+        private ReadCompanyServiceInterface $readCompanyService,
+        private CreateCompanyServiceInterface $createCompanyService,
+        private UpdateCompanyServiceInterface $updateCompanyService,
+        private DeleteCompanyService $deleteCompanyService,
+        private StationsInCompanyTreeServiceInterface $stationsInCompanyTreeService)
     {
-        $this->readCompanyService = $readCompanyService;
-        $this->createCompanyService = $createCompanyService;
-        $this->updateCompanyService = $updateCompanyService;
-        $this->deleteCompanyService = $deleteCompanyService;
-        $this->stationsInCompanyTreeService = $stationsInCompanyTreeService;
     }
 
     public function index() : CompanyCollection

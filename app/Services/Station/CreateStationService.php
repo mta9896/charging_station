@@ -11,20 +11,10 @@ use App\Station;
 
 class CreateStationService implements CreateStationServiceInterface
 {
-    /**
-     * @var CompanyRepositoryInterface
-     */
-    private $companyRepository;
-
-    /**
-     * @var StationRepositoryInterface
-     */
-    private $stationRepository;
-
-    public function __construct(CompanyRepositoryInterface $companyRepository, StationRepositoryInterface $stationRepository)
+    public function __construct(
+        private CompanyRepositoryInterface $companyRepository,
+        private StationRepositoryInterface $stationRepository)
     {
-        $this->stationRepository = $stationRepository;
-        $this->companyRepository = $companyRepository;
     }
 
 

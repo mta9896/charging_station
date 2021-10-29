@@ -10,14 +10,8 @@ use App\Repository\Company\CompanyRepositoryInterface;
 
 class UpdateCompanyService implements UpdateCompanyServiceInterface
 {
-    /**
-     * @var CompanyRepositoryInterface
-     */
-    private $companyRepository;
-
-    public function __construct(CompanyRepositoryInterface $companyRepository)
+    public function __construct(private CompanyRepositoryInterface $companyRepository)
     {
-        $this->companyRepository = $companyRepository;
     }
 
     public function updateCompany(CompanyDTO $companyDTO, int $companyId) : Company
