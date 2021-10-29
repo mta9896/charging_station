@@ -16,11 +16,11 @@ class CompanyDeleteTest extends TestCase
         $company = Company::factory()->create();
 
         $response = $this->deleteJson('/api/companies/' . $company->id);
-        $response->assertStatus(200);
+        $response->assertStatus(204);
 
-        $response = $this->getJson('/api/companies/' . $company->id);
-        $response->assertStatus(404);
-
+        $this->assertDatabaseMissing('companies', [
+            'id' => $company->id
+        ]);
     }
 
     public function testItDeletesStationsWhenCompanyIsDeleted()
@@ -29,10 +29,11 @@ class CompanyDeleteTest extends TestCase
         $station = $company->stations()->save(Station::factory()->make());
 
         $response = $this->deleteJson('/api/companies/' . $company->id);
-        $response->assertStatus(200);
+        $response->assertStatus(204);
 
-        $response = $this->getJson('/api/stations/' . $station->id);
-        $response->assertStatus(404);
+        $this->assertDatabaseMissing('stations', [
+            'id' => $station->id,
+        ]);
     }
 
     public function testItDeletesChildCompaniesWhenCompanyIsDeleted()
@@ -42,9 +43,10 @@ class CompanyDeleteTest extends TestCase
         $childCompany = $parentCompany->children()->save($childCompany);
 
         $response = $this->deleteJson('/api/companies/' . $parentCompany->id);
-        $response->assertStatus(200);
+        $response->assertStatus(204);
 
-        $response = $this->getJson('/api/companies/' . $childCompany->id);
-        $response->assertStatus(404);
+        $this->assertDatabaseMissing('companies', [
+            'id' => $childCompany->id,
+        ]);
     }
 }

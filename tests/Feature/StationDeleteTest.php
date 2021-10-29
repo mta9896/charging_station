@@ -19,10 +19,10 @@ class StationDeleteTest extends TestCase
         $station = $company->stations()->save(Station::factory()->make());
 
         $response = $this->deleteJson('/api/stations/' . $station->id);
-        $response->assertStatus(200);
+        $response->assertStatus(204);
 
-        $response = $this->getJson('/api/stations/' . $station->id);
-        $response->assertStatus(404);
-
+        $this->assertDatabaseMissing('stations', [
+            'id' => $station->id,
+        ]);
     }
 }
