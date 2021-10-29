@@ -89,7 +89,7 @@ class CompanyReadTest extends TestCase
         return [
             'id' => $company->id,
             'name' => $company->name,
-            'parentCompany' => empty($company->parent()->count()) ? [] : [
+            'parentCompany' => ($company->parent()->count() == 0) ? [] : [
                 'id' => $company->parent()->first()->id,
                 'name' => $company->parent()->first()->name,
             ]
