@@ -19,7 +19,7 @@ class DeleteStationService implements DeleteStationServiceInterface
         $this->stationRepository = $stationRepository;
     }
 
-    public function deleteStation(int $stationId)
+    public function deleteStation(int $stationId) : void
     {
         $station = $this->stationRepository->getStation($stationId);
 

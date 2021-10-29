@@ -13,7 +13,7 @@ class StationCollection extends ResourceCollection
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request) : array
     {
         $stations = [];
         foreach ($this->collection as $station) {

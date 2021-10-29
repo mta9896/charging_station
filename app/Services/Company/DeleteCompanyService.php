@@ -18,7 +18,7 @@ class DeleteCompanyService implements DeleteCompanyServiceInterface
         $this->companyRepository = $companyRepository;
     }
 
-    public function deleteCompany(int $companyId)
+    public function deleteCompany(int $companyId) : void
     {
         $company = $this->companyRepository->getCompany($companyId);
 

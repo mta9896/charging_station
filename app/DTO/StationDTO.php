@@ -37,7 +37,7 @@ class StationDTO
     /**
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -45,7 +45,7 @@ class StationDTO
     /**
      * @return float
      */
-    public function getLatitude()
+    public function getLatitude() : float
     {
         return $this->latitude;
     }
@@ -53,7 +53,7 @@ class StationDTO
     /**
      * @return float
      */
-    public function getLongitude()
+    public function getLongitude() : float
     {
         return $this->longitude;
     }
@@ -61,7 +61,7 @@ class StationDTO
     /**
      * @return int
      */
-    public function getCompanyId()
+    public function getCompanyId() : int
     {
         return $this->companyId;
     }

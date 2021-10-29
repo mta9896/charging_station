@@ -15,6 +15,7 @@ use App\Services\Station\DeleteStationServiceInterface;
 use App\Services\Station\ReadStationServiceInterface;
 use App\Services\Station\UpdateStationServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class StationController
 {
@@ -46,7 +47,7 @@ class StationController
         $this->deleteStationService = $deleteStationService;
     }
 
-    public function index(Request $request)
+    public function index(Request $request) : StationCollection
     {
         $filterDTO = new StationFiltersDTO(
             $request->get('latitude'),
@@ -59,14 +60,14 @@ class StationController
         return new StationCollection($stations);
     }
 
-    public function show(int $stationId)
+    public function show(int $stationId) : StationResource
     {
         $station = $this->readStationService->showSingleStation($stationId);
 
         return new StationResource($station);
     }
 
-    public function create(CreateStationRequest $request)
+    public function create(CreateStationRequest $request) : StationResource
     {
         $stationDTO = new StationDTO(
             $request->input('station.name'),
@@ -80,7 +81,7 @@ class StationController
         return new StationResource($station);
     }
 
-    public function update(int $stationId, UpdateStationRequest $request)
+    public function update(int $stationId, UpdateStationRequest $request) : StationResource
     {
         $stationDTO = new StationDTO(
             $request->input('station.name'),
@@ -93,8 +94,10 @@ class StationController
         return new StationResource($station);
     }
 
-    public function delete(int $stationId)
+    public function delete(int $stationId) : Response
     {
         $this->deleteStationService->deleteStation($stationId);
+
+        return new Response('', '204');
     }
 }

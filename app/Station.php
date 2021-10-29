@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Station extends Model
 {
@@ -13,7 +14,7 @@ class Station extends Model
         'name', 'latitude', 'longitude',
     ];
 
-    public function company()
+    public function company() : BelongsTo
     {
         return $this->belongsTo(Company::class);
     }

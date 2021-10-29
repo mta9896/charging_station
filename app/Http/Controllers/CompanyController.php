@@ -15,6 +15,7 @@ use App\Services\Company\DeleteCompanyService;
 use App\Services\Company\ReadCompanyServiceInterface;
 use App\Services\Company\UpdateCompanyServiceInterface;
 use App\Services\Station\StationsInCompanyTreeServiceInterface;
+use Illuminate\Http\Response;
 
 class CompanyController
 {
@@ -53,21 +54,21 @@ class CompanyController
         $this->stationsInCompanyTreeService = $stationsInCompanyTreeService;
     }
 
-    public function index()
+    public function index() : CompanyCollection
     {
         $companies = $this->readCompanyService->listCompanies();
 
         return new CompanyCollection($companies);
     }
 
-    public function show(int $companyId)
+    public function show(int $companyId) : CompanyResource
     {
         $company = $this->readCompanyService->showSingleCompany($companyId);
 
         return new CompanyResource($company);
     }
 
-    public function create(CreateCompanyRequest $request)
+    public function create(CreateCompanyRequest $request) : CompanyResource
     {
         $companyDTO = new CompanyDTO(
             $request->input('company.name'),
@@ -79,7 +80,7 @@ class CompanyController
         return new CompanyResource($company);
     }
 
-    public function update(int $companyId, UpdateCompanyRequest $request)
+    public function update(int $companyId, UpdateCompanyRequest $request) : CompanyResource
     {
         $companyDTO = new CompanyDTO(
             $request->input('company.name')
@@ -90,12 +91,14 @@ class CompanyController
         return new CompanyResource($company);
     }
 
-    public function delete(int $companyId)
+    public function delete(int $companyId) : Response
     {
         $this->deleteCompanyService->deleteCompany($companyId);
+
+        return new Response('', 204);
     }
 
-    public function getStationsByCompany(int $companyId)
+    public function getStationsByCompany(int $companyId) : StationCollection
     {
         $stations = $this->stationsInCompanyTreeService->getAllCompanyStations($companyId);
 

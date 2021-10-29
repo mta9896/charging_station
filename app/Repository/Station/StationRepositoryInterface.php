@@ -20,9 +20,9 @@ interface StationRepositoryInterface
 
     public function createStation(StationDTO $stationDTO, Company $company) : Station;
 
-    public function updateStation(StationDTO $stationDTO, Station $station);
+    public function updateStation(StationDTO $stationDTO, Station $station) : void;
 
-    public function deleteStation(Station $station);
+    public function deleteStation(Station $station) : void;
 
     public function getStationsByCompanyIds(Collection $companyIds) : Collection;
 }

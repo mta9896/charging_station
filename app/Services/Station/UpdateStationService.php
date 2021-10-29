@@ -5,8 +5,8 @@ namespace App\Services\Station;
 
 
 use App\DTO\StationDTO;
-use App\Repository\Company\CompanyRepositoryInterface;
 use App\Repository\Station\StationRepositoryInterface;
+use App\Station;
 
 class UpdateStationService implements UpdateStationServiceInterface
 {
@@ -20,7 +20,7 @@ class UpdateStationService implements UpdateStationServiceInterface
         $this->stationRepository = $stationRepository;
     }
 
-    public function updateStation(int $stationId, StationDTO $stationDTO)
+    public function updateStation(int $stationId, StationDTO $stationDTO) : Station
     {
         $station = $this->stationRepository->getStation($stationId);
 

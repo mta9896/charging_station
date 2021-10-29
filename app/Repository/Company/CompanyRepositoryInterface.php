@@ -16,11 +16,11 @@ interface CompanyRepositoryInterface
 
     public function createCompany(CompanyDTO $companyDTO) : Company;
 
-    public function assignCompanyToParent(Company $parentCompany, Company $childCompany);
+    public function assignCompanyToParent(Company $parentCompany, Company $childCompany) : void;
 
-    public function updateCompany(Company $company, CompanyDTO $companyDTO);
+    public function updateCompany(Company $company, CompanyDTO $companyDTO) : void;
 
-    public function deleteCompany(Company $company);
+    public function deleteCompany(Company $company) : void;
 
     public function getCompanyDescendantsAndSelfIds(Company $company) : Collection;
 }

@@ -25,7 +25,7 @@ class CompanyDTO
     /**
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -33,7 +33,7 @@ class CompanyDTO
     /**
      * @return int
      */
-    public function getParentCompanyId()
+    public function getParentCompanyId() : ?int
     {
         return $this->parentCompanyId;
     }

@@ -54,7 +54,7 @@ class StationRepository implements StationRepositoryInterface
         return $station;
     }
 
-    public function updateStation(StationDTO $stationDTO, Station $station)
+    public function updateStation(StationDTO $stationDTO, Station $station) : void
     {
         $station->update([
             'name' => $stationDTO->getName(),
@@ -63,7 +63,7 @@ class StationRepository implements StationRepositoryInterface
         ]);
     }
 
-    public function deleteStation(Station $station)
+    public function deleteStation(Station $station) : void
     {
         $station->delete();
     }
